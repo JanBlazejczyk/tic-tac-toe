@@ -1,0 +1,81 @@
+/* colors */
+$dark-blue: #023E8A
+$focus-blue: #48CAE4
+$light-blue: #90E0EF
+
+/* font sizes */
+$header-font-size: 3rem
+
+/* font families */
+$header-font-family: 'Architects Daughter', cursive
+
+body
+    background-color: $dark-blue
+
+.start-screen
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    height: 95vh
+
+    &__header
+        color: $light-blue
+        font-size: $header-font-size
+        font-family: $header-font-family
+
+    &__input-container
+        display: grid
+        grid-template-rows: 1fr 1fr
+        grid-template-columns: 1fr 1fr
+        gap: 1rem
+
+    &__input
+        height: 1.6rem
+        text-align: center
+        border-radius: 1.2em
+        border: none
+        padding: 0.2rem
+        background-color: $light-blue
+        color: $dark-blue
+        font-weight: 500
+        outline: none
+
+    &__input:focus
+        background-color: $focus-blue
+
+    &__btn
+        margin-top: 3rem
+        width: 10vw
+        height: 8vh
+        background-color: $light-blue
+        color: $dark-blue
+        font-weight: 1000
+        font-size: 1.3rem
+        font-family: $header-font-family
+        border: none
+        border-radius: 1.5em
+        cursor: pointer
+
+    &__btn:hover
+        background-color: $focus-blue
+
+.game-screen
+    &__game-board
+
+    &__result
+
+    &__btn-container
+
+    &__btn
+        &--retry
+
+        &--new-game
+
+.icon
+    color: $light-blue
+    margin: auto
+    font-size: 2rem
+
+.fa-circle
+    font-weight: 1000
