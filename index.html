@@ -9,42 +9,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./style.css">
     <script src="./script.js" defer></script>
+    <!--Google fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
+    <!--Bootstrap icons-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 
 <body>
     <!--This will hold the start screen-->
     <header class="start-screen">
-        <!--This will display the TIC TAC TOE in big letters-->
-        <h2 class="start-screen__header"></h2>
-        <!--Those will be the inputs for player names-->
-        <!--Above each one there will be an icon indicating player's mark-->
-        <div class="start-screen__input-container">
-            <input class="start-screen__input" type="text">
-            <input class="start-screen__input" type="text">
-        </div>
-        <!--This will be the button starting the game-->
-        <button class="start-screen__btn">Play</button>
-
+        <template id="start-screen-template">
+            <!--This will display the TIC TAC TOE in big letters-->
+            <h2 class="start-screen__header">TIC TAC TOE</h2>
+            <!--Those will be the inputs for player names-->
+            <!--Above each one there will be an icon indicating player's mark-->
+            <div class="start-screen__input-container">
+                <i class="bi bi-x"></i>
+                <i class="bi bi-circle"></i>
+                <input class="start-screen__input" type="text">
+                <input class="start-screen__input" type="text">
+            </div>
+            <!--This will be the button starting the game-->
+            <button class="start-screen__btn">Play</button>
+        </template>
     </header>
     <!--This will display the game while it is played-->
     <main class="game-screen">
-        <!--This will display which player's move it is-->
-        <h5 class="game-screen__player-move"></h5>
-        <!--This will display the board-->
-        <div class="game-screen__game-board">
+        <template id="game-screen-template">
+            <!--This will display which player's move it is-->
+            <h5 class="game-screen__player-move"></h5>
+            <!--This will display the board-->
+            <div class="game-screen__game-board">
 
-        </div>
-        <!--This will display the result of the game-->
-        <caption class="game-screen__result">
+            </div>
+            <!--This will display the result of the game-->
+            <caption class="game-screen__result">
 
-        </caption>
-        <!--This will display two buttons with options to play a new game-->
-        <div class="game-screen__btn-container">
-            <button class="game-screen__btn game-screen__btn--retry">Retry</button>
-            <button class="game-screen__btn game-screen__btn--new-game">New Game</button>
+            </caption>
+            <!--This will display two buttons with options to play a new game-->
+            <div class="game-screen__btn-container">
+                <button class="game-screen__btn game-screen__btn--retry">Retry</button>
+                <button class="game-screen__btn game-screen__btn--new-game">New Game</button>
 
-        </div>
-
+            </div>
+        </template>
     </main>
 
 
