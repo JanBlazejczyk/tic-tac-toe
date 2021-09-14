@@ -1,17 +1,3 @@
-/* colors */
-$dark-blue: #023E8A
-$focus-blue: #48CAE4
-$light-blue: #90E0EF
-
-/* font sizes */
-$header-font-size: 3rem
-
-/* font families */
-$header-font-family: 'Architects Daughter', cursive
-
-body
-    background-color: $dark-blue
-
 .start-screen
     display: flex
     flex-direction: column
@@ -28,7 +14,7 @@ body
         display: grid
         grid-template-rows: 1fr 1fr
         grid-template-columns: 1fr 1fr
-        gap: 1rem
+        gap: 1.2rem
 
     &__input
         height: 1.6rem
@@ -59,18 +45,6 @@ body
 
     &__btn:hover
         background-color: $focus-blue
-
-.game-screen
-    &__game-board
-
-    &__result
-
-    &__btn-container
-
-    &__btn
-        &--retry
-
-        &--new-game
 
 .icon
     color: $light-blue

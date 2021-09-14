@@ -1,10 +1,6 @@
 /* colors */
 /* font sizes */
 /* font families */
-body {
-  background-color: #023E8A;
-}
-
 .start-screen {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -35,7 +31,7 @@ body {
       grid-template-rows: 1fr 1fr;
   -ms-grid-columns: 1fr 1fr;
       grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .start-screen__input {
@@ -80,5 +76,9 @@ body {
 
 .fa-circle {
   font-weight: 1000;
+}
+
+body {
+  background-color: #023E8A;
 }
 /*# sourceMappingURL=style.css.map */
