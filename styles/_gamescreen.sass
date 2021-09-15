@@ -6,12 +6,10 @@
         margin: 0
 
     &__game-board
+        @extend %board-box
         display: grid
         grid-template-columns: 1fr 1fr 1fr
         grid-template-rows: 1fr 1fr 1fr
-        width: 40vh
-        height: 40vh
-        margin: 2rem 0 2rem 0
 
     &__board-square
         border-style: solid
@@ -53,16 +51,6 @@
     &__player-move
         @include light-blue-header-font(1.8rem)
         margin: 0
-
-    &__btn-container
-
-    &__btn
-        @extend %btn
-
-        &--retry
-
-        &--new-game
-            font-size: 1.1rem
 
     &__icon
         color: $light-blue

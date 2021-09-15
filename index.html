@@ -66,16 +66,13 @@
     <template id="result-screen-template">
         <main class="result-screen">
             <h4 class="game-screen__header">Tic-Tac-Toe</h4>
-            <span class="game-screen__result">
-                X won the game
-            </span>
             <!--Two buttons instead of the board-->
-            <div class="game-screen__btn-container">
-                <button class="game-screen__btn game-screen__btn--retry">Retry</button>
-                <button class="game-screen__btn game-screen__btn--new-game">New Game</button>
+            <!--The container needs to be the size of the board and have the same margin-->
+            <div class="result-screen__btn-container">
+                <button class="result-screen__btn result-screen__btn--new-game">New</button>
+                <button class="result-screen__btn result-screen__btn--retry">Retry</button>
             </div>
-
-
+            <h4 class="result-screen__result">X won the game</h4>
         </main>
     </template>
 </body>

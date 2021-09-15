@@ -1,7 +1,7 @@
 /* colors */
 /* font sizes */
 /* font families */
-.start-screen, .game-screen {
+.start-screen, .game-screen, .result-screen {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -18,7 +18,7 @@
   height: 95vh;
 }
 
-.start-screen__btn, .game-screen__btn {
+.start-screen__btn, .result-screen__btn {
   margin-top: 3rem;
   width: 5rem;
   height: 2.2rem;
@@ -32,8 +32,14 @@
   cursor: pointer;
 }
 
-.start-screen__btn:hover, .game-screen__btn:hover {
+.start-screen__btn:hover, .result-screen__btn:hover {
   background-color: #48CAE4;
+}
+
+.game-screen__game-board, .result-screen__btn-container {
+  width: 40vh;
+  height: 40vh;
+  margin: 2rem 0 2rem 0;
 }
 
 .start-screen__header {
@@ -124,9 +130,6 @@
       grid-template-columns: 1fr 1fr 1fr;
   -ms-grid-rows: 1fr 1fr 1fr;
       grid-template-rows: 1fr 1fr 1fr;
-  width: 40vh;
-  height: 40vh;
-  margin: 2rem 0 2rem 0;
 }
 
 .game-screen__board-square {
@@ -188,14 +191,44 @@
   margin: 0;
 }
 
-.game-screen__btn--new-game {
-  font-size: 1.1rem;
-}
-
 .game-screen__icon {
   color: #90E0EF;
   margin: auto;
   font-size: 6vh;
+}
+
+.result-screen__btn-container {
+  width: 40vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.result-screen__result {
+  color: #90E0EF;
+  font-size: 1.8rem;
+  font-family: "Architects Daughter", cursive;
+  margin: 0;
+}
+
+.result-screen__btn {
+  width: 8rem;
+  height: 3rem;
+  margin-top: 0;
+}
+
+.result-screen__btn--new-game {
+  margin-right: 1rem;
+}
+
+.result-screen__btn--retry {
+  margin-left: 1rem;
 }
 
 body {

@@ -1,0 +1,25 @@
+.result-screen
+    @extend %screen-layout
+
+    &__btn-container
+        @extend %board-box
+        width: 40vw
+        display: flex
+        justify-content: center
+        align-items: center
+
+    &__result
+        @include light-blue-header-font(1.8rem)
+        margin: 0
+
+    &__btn
+        @extend %btn
+        width: 8rem
+        height: 3rem
+        margin-top: 0
+
+        &--new-game
+            margin-right: 1rem
+
+        &--retry
+            margin-left: 1rem
