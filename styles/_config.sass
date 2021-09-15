@@ -5,9 +5,9 @@ $light-blue: #90E0EF
 $new-color: #ee6c4d
 
 /* font sizes */
-$header-font-size: 3rem
+$start-header-font-size: 3rem
 $button-font-size: 1.3rem
-$icon-size: 2rem
+$start-icon-size: 2rem
 
 /* font families */
 $header-font-family: 'Architects Daughter', cursive
@@ -34,3 +34,8 @@ $header-font-family: 'Architects Daughter', cursive
 
     &:hover
         background-color: $focus-blue
+
+@mixin light-blue-header-font($font-size)
+    color: $light-blue
+    font-size: $font-size
+    font-family: $header-font-family

@@ -2,9 +2,10 @@
     @extend %screen-layout
 
     &__header
-        color: $light-blue
-        font-size: $header-font-size
-        font-family: $header-font-family
+        // color: $light-blue
+        // font-size: $start-header-font-size
+        // font-family: $header-font-family
+        @include light-blue-header-font($start-header-font-size)
 
     &__input-container
         display: grid
@@ -23,17 +24,20 @@
         font-weight: 500
         outline: none
 
-    &__input:focus
-        background-color: $focus-blue
+        &::placeholder
+            color: $dark-blue
+            font-weight: 500
 
-    /* make a button baseclass in config and extend it here */
+        &:focus
+            background-color: $focus-blue
+
+            &::placeholder
+                opacity: 0
+
     &__btn
         @extend %btn
 
 .icon
     color: $light-blue
     margin: auto
-    font-size: $icon-size
-
-.fa-circle
-    font-weight: 1000
+    font-size: $start-icon-size
