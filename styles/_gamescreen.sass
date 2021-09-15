@@ -1,0 +1,25 @@
+.game-screen
+    @extend %screen-layout
+
+    &__game-board
+        display: grid
+        grid-template-columns: 1fr 1fr 1fr
+        grid-template-rows: 1fr 1fr 1fr
+        width: 50vh
+        height: 50vh
+        border-style: solid
+
+    &__board-square
+        border-style: solid
+        display: flex
+        justify-content: center
+        align-items: center
+
+    &__result
+
+    &__btn-container
+
+    &__btn
+        &--retry
+
+        &--new-game

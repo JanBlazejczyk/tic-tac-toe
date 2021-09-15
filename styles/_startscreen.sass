@@ -1,9 +1,5 @@
 .start-screen
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
-    height: 95vh
+    @extend %screen-layout
 
     &__header
         color: $light-blue
@@ -30,6 +26,7 @@
     &__input:focus
         background-color: $focus-blue
 
+    /* make a button baseclass in config and extend it here */
     &__btn
         margin-top: 3rem
         width: 10vw
@@ -37,19 +34,19 @@
         background-color: $light-blue
         color: $dark-blue
         font-weight: 1000
-        font-size: 1.3rem
+        font-size: $button-font-size
         font-family: $header-font-family
         border: none
         border-radius: 1.5em
         cursor: pointer
 
-    &__btn:hover
-        background-color: $focus-blue
+        &:hover
+            background-color: $focus-blue
 
 .icon
     color: $light-blue
     margin: auto
-    font-size: 2rem
+    font-size: $icon-size
 
 .fa-circle
     font-weight: 1000

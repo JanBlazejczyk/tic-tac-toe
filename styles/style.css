@@ -1,7 +1,7 @@
 /* colors */
 /* font sizes */
 /* font families */
-.start-screen {
+.start-screen, .game-screen {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -16,6 +16,10 @@
       -ms-flex-align: center;
           align-items: center;
   height: 95vh;
+}
+
+.start-screen {
+  /* make a button baseclass in config and extend it here */
 }
 
 .start-screen__header {
@@ -76,6 +80,31 @@
 
 .fa-circle {
   font-weight: 1000;
+}
+
+.game-screen__game-board {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  -ms-grid-rows: 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+  width: 50vh;
+  height: 50vh;
+  border-style: solid;
+}
+
+.game-screen__board-square {
+  border-style: solid;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 body {
