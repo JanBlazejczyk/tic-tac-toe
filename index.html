@@ -17,25 +17,25 @@
     <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="container">
     <!--This will hold the start screen-->
-
     <template id="start-screen-template">
-        <header class="start-screen"></header>
-        <!--This will display the TIC TAC TOE in big letters-->
-        <h2 class="start-screen__header">TIC TAC TOE</h2>
-        <!--Those will be the inputs for player names-->
-        <!--Above each one there will be an icon indicating player's mark-->
-        <div class="start-screen__input-container">
-            <i class="fas fa-times icon"></i>
-            <i class="far fa-circle icon"></i>
+        <main class="start-screen">
+            </header>
+            <!--This will display the TIC TAC TOE in big letters-->
+            <h2 class="start-screen__header">TIC TAC TOE</h2>
+            <!--Those will be the inputs for player names-->
+            <!--Above each one there will be an icon indicating player's mark-->
+            <div class="start-screen__input-container">
+                <i class="fas fa-times icon"></i>
+                <i class="far fa-circle icon"></i>
 
-            <input class="start-screen__input" type="text">
-            <input class="start-screen__input" type="text">
-        </div>
-        <!--This will be the button starting the game-->
-        <button class="start-screen__btn">Play</button>
-        </header>
+                <input class="start-screen__input" type="text">
+                <input class="start-screen__input" type="text">
+            </div>
+            <!--This will be the button starting the game-->
+            <button class="start-screen__btn">Play</button>
+        </main>
     </template>
 
     <!--This will display the game while it is played-->
@@ -46,15 +46,18 @@
             <h4 class="game-screen__player-move">X move</h4>
             <!--This will display the board-->
             <div class="game-screen__game-board">
-                <div class="game-screen__board-square" id="0"></div>
-                <div class="game-screen__board-square" id="1"><i class="far fa-circle icon"></i></div>
-                <div class="game-screen__board-square" id="2"></div>
-                <div class="game-screen__board-square" id="3"></div>
-                <div class="game-screen__board-square" id="4"><i class="fas fa-times icon"></i></div>
-                <div class="game-screen__board-square" id="5"></div>
-                <div class="game-screen__board-square" id="6"></div>
-                <div class="game-screen__board-square" id="7"><i class="fas fa-times icon"></i></div>
-                <div class="game-screen__board-square" id="8"></div>
+                <div class="game-screen__board-square game-screen__board-square--0" id="0"></div>
+                <div class="game-screen__board-square game-screen__board-square--1" id="1"><i
+                        class="far fa-circle icon"></i></div>
+                <div class="game-screen__board-square game-screen__board-square--2" id="2"></div>
+                <div class="game-screen__board-square game-screen__board-square--3" id="3"></div>
+                <div class="game-screen__board-square game-screen__board-square--4" id="4"><i
+                        class="fas fa-times icon"></i></div>
+                <div class="game-screen__board-square game-screen__board-square--5" id="5"></div>
+                <div class="game-screen__board-square game-screen__board-square--6" id="6"></div>
+                <div class="game-screen__board-square game-screen__board-square--7" id="7"><i
+                        class="fas fa-times icon"></i></div>
+                <div class="game-screen__board-square game-screen__board-square--8" id="8"></div>
             </div>
             <!--This will display the result of the game-->
             <caption class="game-screen__result">
@@ -67,13 +70,6 @@
             </div>
         </main>
     </template>
-    <!--This will be the placeholder for displaying templates-->
-    <div class="display-templates">
-
-    </div>
-
-
-
 </body>
 
 </html>

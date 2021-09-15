@@ -28,20 +28,7 @@
 
     /* make a button baseclass in config and extend it here */
     &__btn
-        margin-top: 3rem
-        width: 10vw
-        height: 8vh
-        background-color: $light-blue
-        color: $dark-blue
-        font-weight: 1000
-        font-size: $button-font-size
-        font-family: $header-font-family
-        border: none
-        border-radius: 1.5em
-        cursor: pointer
-
-        &:hover
-            background-color: $focus-blue
+        @extend %btn
 
 .icon
     color: $light-blue

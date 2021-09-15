@@ -1,11 +1,12 @@
+const placeholder = document.querySelector(".container");
 
-console.log("Script works!")
-const header = document.querySelector(".display-templates");
-const startScreen = document.getElementById("start-screen-template");
-const content = startScreen.content;
-// header.appendChild(content);
+const startScreenTemplate = document.querySelector("#start-screen-template");
+const startScreenTemplateContent = startScreenTemplate.content;
 
-const main = document.querySelector(".display-templates");
-const gameHTML = document.getElementById("game-screen-template");
-const gameScreenContent = gameHTML.content;
-main.appendChild(gameScreenContent);
+const gameScreenTemplate = document.querySelector("#game-screen-template");
+const gameScreenTemplateContent = gameScreenTemplate.content;
+
+
+// placeholder.appendChild(startScreenTemplateContent);
+placeholder.appendChild(gameScreenTemplateContent);
+

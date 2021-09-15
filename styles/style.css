@@ -18,6 +18,24 @@
   height: 95vh;
 }
 
+.start-screen__btn, .game-screen__btn {
+  margin-top: 3rem;
+  width: 10vw;
+  height: 8vh;
+  background-color: #90E0EF;
+  color: #023E8A;
+  font-weight: 1000;
+  font-size: 1.3rem;
+  font-family: "Architects Daughter", cursive;
+  border: none;
+  border-radius: 1.5em;
+  cursor: pointer;
+}
+
+.start-screen__btn:hover, .game-screen__btn:hover {
+  background-color: #48CAE4;
+}
+
 .start-screen {
   /* make a button baseclass in config and extend it here */
 }
@@ -54,24 +72,6 @@
   background-color: #48CAE4;
 }
 
-.start-screen__btn {
-  margin-top: 3rem;
-  width: 10vw;
-  height: 8vh;
-  background-color: #90E0EF;
-  color: #023E8A;
-  font-weight: 1000;
-  font-size: 1.3rem;
-  font-family: "Architects Daughter", cursive;
-  border: none;
-  border-radius: 1.5em;
-  cursor: pointer;
-}
-
-.start-screen__btn:hover {
-  background-color: #48CAE4;
-}
-
 .icon {
   color: #90E0EF;
   margin: auto;
@@ -91,11 +91,13 @@
       grid-template-rows: 1fr 1fr 1fr;
   width: 50vh;
   height: 50vh;
-  border-style: solid;
 }
 
 .game-screen__board-square {
   border-style: solid;
+  border-color: #90E0EF;
+  border-radius: 1.2em;
+  border-width: 0.3em;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -105,6 +107,46 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.game-screen__board-square--0 {
+  border-left: none;
+  border-top: none;
+}
+
+.game-screen__board-square--1 {
+  border-top: none;
+}
+
+.game-screen__board-square--2 {
+  border-top: none;
+  border-right: none;
+}
+
+.game-screen__board-square--3 {
+  border-left: none;
+}
+
+.game-screen__board-square--5 {
+  border-right: none;
+}
+
+.game-screen__board-square--6 {
+  border-left: none;
+  border-bottom: none;
+}
+
+.game-screen__board-square--7 {
+  border-bottom: none;
+}
+
+.game-screen__board-square--8 {
+  border-bottom: none;
+  border-right: none;
+}
+
+.game-screen__btn--new-game {
+  font-size: 1.1rem;
 }
 
 body {

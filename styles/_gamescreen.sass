@@ -7,19 +7,52 @@
         grid-template-rows: 1fr 1fr 1fr
         width: 50vh
         height: 50vh
-        border-style: solid
 
     &__board-square
         border-style: solid
+        border-color: $light-blue
+        border-radius: 1.2em
+        border-width: 0.3em
         display: flex
         justify-content: center
         align-items: center
+
+        &--0
+            border-left: none
+            border-top: none
+
+        &--1
+            border-top: none
+
+        &--2
+            border-top: none
+            border-right: none
+
+        &--3
+            border-left: none
+
+        &--5
+            border-right: none
+
+        &--6
+            border-left: none
+            border-bottom: none
+
+        &--7
+            border-bottom: none
+
+        &--8
+            border-bottom: none
+            border-right: none
 
     &__result
 
     &__btn-container
 
     &__btn
+        @extend %btn
+
         &--retry
 
         &--new-game
+            font-size: 1.1rem
