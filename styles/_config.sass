@@ -53,3 +53,11 @@ $header-font-family: 'Architects Daughter', cursive
     color: $light-blue
     font-size: $font-size
     font-family: $header-font-family
+
+@mixin icon($size, $hover: false)
+    font-size: $size
+    margin: auto
+    color: $light-blue
+
+    @if $hover
+        color: $dark-blue

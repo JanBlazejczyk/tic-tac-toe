@@ -11,6 +11,6 @@ const resultScreenTemplateContent = resultScreenTemplate.content;
 
 
 // placeholder.appendChild(startScreenTemplateContent);
-// placeholder.appendChild(gameScreenTemplateContent);
-placeholder.appendChild(resultScreenTemplateContent);
+placeholder.appendChild(gameScreenTemplateContent);
+// placeholder.appendChild(resultScreenTemplateContent);
 

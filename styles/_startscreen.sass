@@ -38,6 +38,4 @@
         @extend %btn
 
     &__icon
-        color: $light-blue
-        margin: auto
-        font-size: $start-icon-size
+        @include icon($start-icon-size, $hover: false)

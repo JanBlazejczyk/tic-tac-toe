@@ -118,9 +118,9 @@
 }
 
 .start-screen__icon {
-  color: #90E0EF;
-  margin: auto;
   font-size: 2rem;
+  margin: auto;
+  color: #90E0EF;
 }
 
 .game-screen__header {
@@ -153,6 +153,10 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.game-screen__board-square:hover {
+  background-color: #48CAE4;
 }
 
 .game-screen__board-square--0 {
@@ -199,9 +203,16 @@
 }
 
 .game-screen__icon {
-  color: #90E0EF;
-  margin: auto;
   font-size: 6vh;
+  margin: auto;
+  color: #90E0EF;
+}
+
+.game-screen__icon:hover {
+  font-size: 6vh;
+  margin: auto;
+  color: #90E0EF;
+  color: #023E8A;
 }
 
 .result-screen__btn-container {
