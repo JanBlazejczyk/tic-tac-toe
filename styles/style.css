@@ -1,6 +1,8 @@
 /* colors */
 /* font sizes */
 /* font families */
+/* inheritance */
+/* layout that each screen shares */
 .start-screen, .game-screen, .result-screen {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -18,6 +20,7 @@
   height: 95vh;
 }
 
+/* button component */
 .start-screen__btn, .result-screen__btn {
   margin-top: 3rem;
   width: 5rem;
@@ -36,12 +39,16 @@
   background-color: #48CAE4;
 }
 
+/* sizing of the gameboard */
+/* also shared by the result buttons container */
 .game-screen__game-board, .result-screen__btn-container {
   width: 40vh;
   height: 40vh;
   margin: 2rem 0 2rem 0;
 }
 
+/* mixings */
+/* shared properties of the fonts */
 .start-screen__header {
   color: #90E0EF;
   font-size: 3rem;

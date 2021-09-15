@@ -2,7 +2,7 @@
     @extend %screen-layout
 
     &__header
-        @include light-blue-header-font(2.5rem)
+        @include light-blue-header-font($top-caption-font-size)
         margin: 0
 
     &__game-board
@@ -49,7 +49,7 @@
             border-right: none
 
     &__player-move
-        @include light-blue-header-font(1.8rem)
+        @include light-blue-header-font($bottom-caption-font-size)
         margin: 0
 
     &__icon

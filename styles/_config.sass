@@ -2,10 +2,11 @@
 $dark-blue: #023E8A
 $focus-blue: #48CAE4
 $light-blue: #90E0EF
-$new-color: #ee6c4d
 
 /* font sizes */
 $start-header-font-size: 3rem
+$top-caption-font-size: 2.5rem
+$bottom-caption-font-size: 1.8rem
 $button-font-size: 1.3rem
 $start-icon-size: 2rem
 $game-icon-size: 6vh
@@ -13,6 +14,8 @@ $game-icon-size: 6vh
 /* font families */
 $header-font-family: 'Architects Daughter', cursive
 
+/* inheritance */
+/* layout that each screen shares */
 %screen-layout
     display: flex
     flex-direction: column
@@ -20,6 +23,7 @@ $header-font-family: 'Architects Daughter', cursive
     align-items: center
     height: 95vh
 
+/* button component */
 %btn
     margin-top: 3rem
     width: 5rem
@@ -36,11 +40,15 @@ $header-font-family: 'Architects Daughter', cursive
     &:hover
         background-color: $focus-blue
 
+/* sizing of the gameboard */
+/* also shared by the result buttons container */
 %board-box
     width: 40vh
     height: 40vh
     margin: 2rem 0 2rem 0
 
+/* mixings */
+/* shared properties of the fonts */
 @mixin light-blue-header-font($font-size)
     color: $light-blue
     font-size: $font-size
