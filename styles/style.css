@@ -20,8 +20,8 @@
 
 .start-screen__btn, .game-screen__btn {
   margin-top: 3rem;
-  width: 10vw;
-  height: 8vh;
+  width: 5rem;
+  height: 2.2rem;
   background-color: #90E0EF;
   color: #023E8A;
   font-weight: 1000;
@@ -104,7 +104,7 @@
   opacity: 0;
 }
 
-.icon {
+.start-screen__icon {
   color: #90E0EF;
   margin: auto;
   font-size: 2rem;
@@ -190,6 +190,12 @@
 
 .game-screen__btn--new-game {
   font-size: 1.1rem;
+}
+
+.game-screen__icon {
+  color: #90E0EF;
+  margin: auto;
+  font-size: 6vh;
 }
 
 body {

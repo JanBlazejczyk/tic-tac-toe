@@ -7,6 +7,6 @@ const gameScreenTemplate = document.querySelector("#game-screen-template");
 const gameScreenTemplateContent = gameScreenTemplate.content;
 
 
-placeholder.appendChild(startScreenTemplateContent);
-// placeholder.appendChild(gameScreenTemplateContent);
+// placeholder.appendChild(startScreenTemplateContent);
+placeholder.appendChild(gameScreenTemplateContent);
 
