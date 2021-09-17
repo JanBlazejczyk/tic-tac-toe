@@ -22,29 +22,29 @@ body
             width: 60vw
 
         &__btn
-            font-size: 1rem
+            font-size: $button-font-size-smaller
 
 // 320
 @media (max-width: $start-screen-header-breakpoint)
     .start-screen
         &__icon
-            @include icons($button-font-size, $hover: false)
+            @include icons($start-icon-size-smaller, $hover: false)
 
         &__header
-            @include light-blue-header-font(2rem)
+            @include light-blue-header-font($start-header-font-size-smaller)
 
 // 250
 @media (max-width: $caption-font-sizes-breakpoint)
     .game-screen
         &__header
-            @include light-blue-header-font(1.5rem)
+            @include light-blue-header-font($top-caption-font-size-smaller)
 
         &__player-move
-            @include light-blue-header-font(1rem)
+            @include light-blue-header-font($bottom-caption-font-size-smaller)
     // working
     .result-screen
         &__btn-container
             width: 75vw
 
         &__result
-            @include light-blue-header-font(1rem)
+            @include light-blue-header-font($bottom-caption-font-size-smaller)
