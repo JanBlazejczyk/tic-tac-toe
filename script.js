@@ -10,7 +10,7 @@ const resultScreenTemplate = document.querySelector("#result-screen-template");
 const resultScreenTemplateContent = resultScreenTemplate.content;
 
 
-// placeholder.appendChild(startScreenTemplateContent);
-placeholder.appendChild(gameScreenTemplateContent);
+placeholder.appendChild(startScreenTemplateContent);
+// placeholder.appendChild(gameScreenTemplateContent);
 // placeholder.appendChild(resultScreenTemplateContent);
 

@@ -2,9 +2,6 @@
     @extend %screen-layout
 
     &__header
-        // color: $light-blue
-        // font-size: $start-header-font-size
-        // font-family: $header-font-family
         @include light-blue-header-font($start-header-font-size)
 
     &__input-container
@@ -37,5 +34,6 @@
     &__btn
         @extend %btn
 
+    /* the style is there but changes are ignored */
     &__icon
-        @include icon($start-icon-size, $hover: false)
+        @include icons($start-icon-size, $hover: false)

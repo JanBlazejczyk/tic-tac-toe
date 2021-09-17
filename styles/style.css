@@ -1,6 +1,7 @@
 /* colors */
 /* font sizes */
 /* font families */
+/* media query breakpoints */
 /* inheritance */
 /* layout that each screen shares */
 .start-screen, .game-screen, .result-screen {
@@ -49,6 +50,10 @@
 
 /* mixings */
 /* shared properties of the fonts */
+.start-screen {
+  /* the style is there but changes are ignored */
+}
+
 .start-screen__header {
   color: #90E0EF;
   font-size: 3rem;
@@ -251,5 +256,64 @@
 
 body {
   background-color: #023E8A;
+}
+
+/* Media queries for narrower screens */
+@media (max-width: 450px) {
+  .start-screen__input-container {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+}
+
+@media (max-width: 400px) {
+  .result-screen__btn-container {
+    width: 60vw;
+  }
+  .result-screen__btn {
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .start-screen__icon {
+    font-size: 1.3rem;
+    margin: auto;
+    color: #90E0EF;
+  }
+  .start-screen__header {
+    color: #90E0EF;
+    font-size: 2rem;
+    font-family: "Architects Daughter", cursive;
+  }
+}
+
+@media (max-width: 250px) {
+  .game-screen__header {
+    color: #90E0EF;
+    font-size: 1.5rem;
+    font-family: "Architects Daughter", cursive;
+  }
+  .game-screen__player-move {
+    color: #90E0EF;
+    font-size: 1rem;
+    font-family: "Architects Daughter", cursive;
+  }
+  .result-screen__btn-container {
+    width: 75vw;
+  }
+  .result-screen__result {
+    color: #90E0EF;
+    font-size: 1rem;
+    font-family: "Architects Daughter", cursive;
+  }
 }
 /*# sourceMappingURL=style.css.map */

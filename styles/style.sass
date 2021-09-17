@@ -5,3 +5,46 @@
 
 body
     background-color: $dark-blue
+
+/* Media queries for narrower screens */
+// 450
+@media (max-width: $start-screen-input-breakpoint)
+    .start-screen
+        &__input-container
+            display: flex
+            flex-direction: column
+            justify-content: center
+
+// 400
+@media (max-width: $result-screen-buttons-breakpoint)
+    .result-screen
+        &__btn-container
+            width: 60vw
+
+        &__btn
+            font-size: 1rem
+
+// 320
+@media (max-width: $start-screen-header-breakpoint)
+    .start-screen
+        &__icon
+            @include icons($button-font-size, $hover: false)
+
+        &__header
+            @include light-blue-header-font(2rem)
+
+// 250
+@media (max-width: $caption-font-sizes-breakpoint)
+    .game-screen
+        &__header
+            @include light-blue-header-font(1.5rem)
+
+        &__player-move
+            @include light-blue-header-font(1rem)
+    // working
+    .result-screen
+        &__btn-container
+            width: 75vw
+
+        &__result
+            @include light-blue-header-font(1rem)
