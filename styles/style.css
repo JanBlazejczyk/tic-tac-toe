@@ -64,6 +64,10 @@
   font-family: "Architects Daughter", cursive;
 }
 
+.start-screen__player-names-form {
+  text-align: center;
+}
+
 .start-screen__input-container {
   display: -ms-grid;
   display: grid;
@@ -75,7 +79,9 @@
 }
 
 .start-screen__input {
-  height: 1.6rem;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 2rem;
   text-align: center;
   border-radius: 1.2em;
   border: none;
@@ -84,6 +90,10 @@
   color: #023E8A;
   font-weight: 500;
   outline: none;
+}
+
+.start-screen__input--warning {
+  border: 2px solid #ee6c4d;
 }
 
 .start-screen__input::-webkit-input-placeholder {

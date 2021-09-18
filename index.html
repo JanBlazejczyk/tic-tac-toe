@@ -25,15 +25,17 @@
         <h2 class="start-screen__header">TIC TAC TOE</h2>
         <!--Those will be the inputs for player names-->
         <!--Above each one there will be an icon indicating player's mark-->
-        <div class="start-screen__input-container">
-            <i class="fas fa-times start-screen__icon"></i>
-            <i class="far fa-circle start-screen__icon"></i>
+        <form action="#" class="start-screen__player-names-form">
+            <div class="start-screen__input-container">
+                <i class="fas fa-times start-screen__icon"></i>
+                <i class="far fa-circle start-screen__icon"></i>
 
-            <input class="start-screen__input start-screen__input--X" placeholder="X player name" type="text">
-            <input class="start-screen__input start-screen__input--O" placeholder="O player name" type="text">
-        </div>
-        <!--This will be the button starting the game-->
-        <button class="start-screen__btn">Play</button>
+                <input class="start-screen__input start-screen__input--X" placeholder="X player name" type="text" />
+                <input class="start-screen__input start-screen__input--O" placeholder="O player name" type="text" />
+            </div>
+            <!--This will be the button starting the game-->
+            <button class="start-screen__btn" type="submit">Play</button>
+        </form>
     </main>
 
     <!--This will display the game while it is played-->
