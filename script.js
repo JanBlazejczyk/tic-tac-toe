@@ -71,7 +71,7 @@ const PlayersModule = (() => {
     };
 
 
-    const activePlayer = () => {
+    const _activePlayer = () => {
         if (players.ActivePlayer === "x") {
             players.ActivePlayer = "o";
         }
@@ -89,19 +89,17 @@ const PlayersModule = (() => {
             playerName.innerHTML = players.PlayerO + "'s";
         }
         // change active player
-        activePlayer();
+        _activePlayer();
     }
 
     // bind events
     playButton.addEventListener("click", getPlayers);
     // each time the boardsquare is clicked display the active player's move
-    gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", displayPlayer));
     // use the clear player names with the new game button
 
 
     return {
         displayPlayer,
-        activePlayer,
         getPlayers,
         clearPlayerNames,
         players,
@@ -117,11 +115,11 @@ DONE! - renderBoard()
 renders the board based on the state of the board array / object - public method that will use the update board
 runs each time player makes a move
 
-- updateBoard() - will need an active player function
+DONE! updateBoard() - will need an active player function
 adds marks to the board array / object - needs the information on which mark is the active player
 runs each time player makes a move
 
-- checkMove()
+DONE! checkMove()
 check if the move is legal - private method that the update board array will use
 runs each time the player clicks on the board
 
@@ -165,6 +163,8 @@ const GameBoardModule = (() => {
         // update the gameBoard.id with correct mark
         if (gameBoard[clickedSquareNum] === "") {
             gameBoard[clickedSquareNum] = activePlayerMark;
+            // only change the displayed player when the move is legal
+            PlayersModule.displayPlayer();
         }
 
     };
@@ -186,6 +186,7 @@ const GameBoardModule = (() => {
                 boardSquareDiv.innerHTML = iconOTemplate;
             }
         }
+
     }
 
     // bind events
