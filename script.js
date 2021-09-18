@@ -58,8 +58,6 @@ const PlayersModule = (() => {
         // sets new names based on the value of the input fields
         _setNameX();
         _setNameO();
-        // clears the input fields
-        // _clearPlayerNameInput();
         // returns the object with player names
         return players;
     };
@@ -81,6 +79,8 @@ const PlayersModule = (() => {
     };
 
     const displayPlayer = () => {
+        // change active player
+        _activePlayer();
         playerName.innerHTML = "";
         if (players.ActivePlayer === "x") {
             playerName.innerHTML = players.PlayerX + "'s";
@@ -88,8 +88,7 @@ const PlayersModule = (() => {
         else if (players.ActivePlayer === "o") {
             playerName.innerHTML = players.PlayerO + "'s";
         }
-        // change active player
-        _activePlayer();
+
     }
 
     // bind events
@@ -216,6 +215,7 @@ const ShowPagesModule = (() => {
     const playButton = document.querySelector(".start-screen__btn");
     const newGameButton = document.querySelector(".result-screen__btn--new-game");
     const retryButton = document.querySelector(".result-screen__btn--retry");
+    const playerName = document.querySelector(".game-screen__player-name");
 
     // define methods
     const showStartPage = () => {
@@ -224,7 +224,6 @@ const ShowPagesModule = (() => {
         startPage.classList.remove("start-screen__hidden");
         gamePage.classList.add("game-screen__hidden");
         resultPage.classList.add("result-screen__hidden");
-
     };
 
     const showGamePage = () => {
@@ -233,8 +232,11 @@ const ShowPagesModule = (() => {
             startPage.classList.add("start-screen__hidden");
             gamePage.classList.remove("game-screen__hidden");
             resultPage.classList.add("result-screen__hidden");
+
+            // player x always go first so this is the initial value
+            playerName.innerHTML = PlayersModule.players.PlayerX + "'s";
         }
-        PlayersModule.displayPlayer();
+
     };
 
     const showResultPage = () => {
