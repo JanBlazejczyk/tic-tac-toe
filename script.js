@@ -70,24 +70,23 @@ const PlayersModule = (() => {
     };
 
 
-    const activePlayer = (players) => {
+    const activePlayer = () => {
         if (players.ActivePlayer === "x") {
             players.ActivePlayer = "o";
         }
         else {
             players.ActivePlayer = "x";
         }
-        return players;
+        // return players;
     };
 
     const displayPlayer = () => {
         playerName.innerHTML = "";
-
-        if (playerName.activePlayer === "o") {
-            playerName.innerHTML = players.PlayerO + "'s";
-        }
-        else {
+        if (players.ActivePlayer === "x") {
             playerName.innerHTML = players.PlayerX + "'s";
+        }
+        else if (players.ActivePlayer === "o") {
+            playerName.innerHTML = players.PlayerO + "'s";
         }
     }
 
@@ -149,12 +148,23 @@ const GameBoardModule = (() => {
     }
 
     // define methods
-    const updateBoard = () => {
+    const updateBoard = (event) => {
+        // based on an active player when the user clicks on the square
+        // change the state of the board object accordingly
 
+        // get an active's player mark
+        let activePlayerMark = PlayersModule.players.ActivePlayer
+        console.log(activePlayerMark);
+        // figure out which square was clicked
+        let clickedSquareNum = event.target.id;
+        // get the square id and store it
+        // update the gameBoard.id with correct mark
+        gameBoard[clickedSquareNum] = activePlayerMark;
     };
 
 
-    const renderBoard = () => {
+    const renderBoard = (event) => {
+        updateBoard(event);
         // use update board here!
         for (i = 0; i <= 8; i++) {
             let boardSquareDiv = document.querySelector(`.game-screen__board-square--${i}`);
@@ -168,12 +178,14 @@ const GameBoardModule = (() => {
             else if (boardObjectRepresentation === "o") {
                 boardSquareDiv.innerHTML = iconOTemplate;
             }
-
         }
-        console.log("fires!")
+        // each time the mark is added change an active player
+        PlayersModule.activePlayer(PlayersModule.players);
+        PlayersModule.displayPlayer();
     }
 
     // bind events
+    // this needs to be one of the divs not the whole board!
     gameBoardContainer.addEventListener("click", renderBoard);
 
     // return public methods
