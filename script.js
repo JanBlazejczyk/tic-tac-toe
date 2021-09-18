@@ -1,18 +1,10 @@
 /*
 PLAYERS MODULE:
 module that binds the names players typed in with their marks when the play button is clicked
-
-- activePlayer()
-switch player moves (marks are different) - public method to be used by Players.displayPlayer and GameBoard.updateBoard()
-will fire each time that the board get's updated
-
-- displayPlayer()
-display which player is about to move - public method
-add a name in the bottom caption and corresponding icon below
 */
 const PlayersModule = (() => {
     // initialize an object to return
-    const playerNames = {
+    const players = {
         "PlayerX": "",
         "PlayerO": "",
         "ActivePlayer": "x",
@@ -22,14 +14,15 @@ const PlayersModule = (() => {
     const playerXInput = document.querySelector(".start-screen__input--X");
     const playerOInput = document.querySelector(".start-screen__input--O");
     const playButton = document.querySelector(".start-screen__btn");
+    const playerName = document.querySelector(".game-screen__player-name");
 
     // define methods
     const _setNameO = () => {
-        playerNames.PlayerO = playerOInput.value;
+        players.PlayerO = playerOInput.value;
     };
 
     const _setNameX = () => {
-        playerNames.PlayerX = playerXInput.value;
+        players.PlayerX = playerXInput.value;
     };
 
     // this will be used at the later stages
@@ -68,14 +61,36 @@ const PlayersModule = (() => {
         // clears the input fields
         // _clearPlayerNameInput();
         // returns the object with player names
-        return playerNames;
+        return players;
     };
 
     // will be used later with the new game button
     const clearPlayerNames = () => {
-        playerNames.PlayerO = "";
-        playerNames.PlayerX = "";
+        players.PlayerO = "";
+        players.PlayerX = "";
     };
+
+
+    const activePlayer = (players) => {
+        if (players.ActivePlayer === "x") {
+            players.ActivePlayer = "o";
+        }
+        else {
+            players.ActivePlayer = "x";
+        }
+        return players;
+    };
+
+    const displayPlayer = () => {
+        playerName.innerHTML = "";
+
+        if (playerName.activePlayer === "o") {
+            playerName.innerHTML = players.PlayerO + "'s";
+        }
+        else {
+            playerName.innerHTML = players.PlayerX + "'s";
+        }
+    }
 
     // bind events
     playButton.addEventListener("click", getPlayers);
@@ -83,9 +98,11 @@ const PlayersModule = (() => {
 
 
     return {
+        displayPlayer,
+        activePlayer,
         getPlayers,
         clearPlayerNames,
-        playerNames,
+        players,
         checkInput,
         clearPlayerNameInput
     };
@@ -124,6 +141,10 @@ display the final message with the player's name - public method
 */
 
 
+
+
+
+
 /*
 SHOW PAGES MODULE:
 a module with methods for adding and removing the classes responsible for the visibility of the screens
@@ -155,6 +176,7 @@ const showPagesModule = (() => {
             gamePage.classList.remove("game-screen__hidden");
             resultPage.classList.add("result-screen__hidden");
         }
+        PlayersModule.displayPlayer();
 
     };
 
