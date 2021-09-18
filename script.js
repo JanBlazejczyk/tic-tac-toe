@@ -136,7 +136,7 @@ display the final message with the player's name - public method
 */
 const GameBoardModule = (() => {
     // cache DOM
-    const gameBoardContainer = document.querySelector(".game-screen__game-board");
+    const gameBoardSquares = document.querySelectorAll(".game-screen__board-square");
     const iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
     const iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`
 
@@ -186,7 +186,7 @@ const GameBoardModule = (() => {
 
     // bind events
     // this needs to be one of the divs not the whole board!
-    gameBoardContainer.addEventListener("click", renderBoard);
+    gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", renderBoard))
 
     // return public methods
     return {
