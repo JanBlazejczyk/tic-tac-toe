@@ -54,6 +54,10 @@
   /* the style is there but changes are ignored */
 }
 
+.start-screen__hidden {
+  display: none;
+}
+
 .start-screen__header {
   color: #90E0EF;
   font-size: 3rem;
@@ -126,6 +130,10 @@
   font-size: 2rem;
   margin: auto;
   color: #90E0EF;
+}
+
+.game-screen__hidden {
+  display: none;
 }
 
 .game-screen__header {
@@ -218,6 +226,10 @@
   margin: auto;
   color: #90E0EF;
   color: #023E8A;
+}
+
+.result-screen__hidden {
+  display: none;
 }
 
 .result-screen__btn-container {

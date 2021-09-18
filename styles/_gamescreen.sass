@@ -1,6 +1,9 @@
 .game-screen
     @extend %screen-layout
 
+    &__hidden
+        display: none
+
     &__header
         @include light-blue-header-font($top-caption-font-size)
         margin: 0
@@ -22,8 +25,6 @@
 
         &:hover
             background-color: $focus-blue
-            // this gives very strange results
-            // @include icon($game-icon-size, $hover: true)
 
         &--0
             border-left: none

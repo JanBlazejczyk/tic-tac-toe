@@ -1,29 +1,21 @@
-const placeholder = document.querySelector(".container");
-const startScreenTemplate = document.querySelector("#start-screen-template").content;
-const gameScreenTemplate = document.querySelector("#game-screen-template").content;
-const resultScreenTemplate = document.querySelector("#result-screen-template").content;
-
-
-placeholder.appendChild(startScreenTemplate);
-// placeholder.appendChild(gameScreenTemplate);
-// placeholder.appendChild(resultScreenTemplate);
-
-/*
-Each:
-- cacheDom: catch the dom elements as variables
-- bindEvents: event listeners with their functions
-- render
-*/
-
 /*
 PLAYER MODULE:
 module that binds the names players typed in with their marks when the play button is clicked
+
+- activePlayer()
+switch player moves (marks are different) - private method to be used by display player
+will fire each time that the board get's updated
+
+- renderPlayer()
+display which player is about to move - public method
+add a name in the bottom caption and corresponding icon below
 */
 const Players = (() => {
     // initialize an object to return
     const playerNames = {
         "PlayerX": "",
         "PlayerO": "",
+        "ActivePlayer": "x",
     }
 
     // cache DOM
@@ -31,7 +23,7 @@ const Players = (() => {
     const playerOInput = document.querySelector(".start-screen__input--O");
     const playButton = document.querySelector(".start-screen__btn");
 
-    // methods
+    // define methods
     const _setNameO = () => {
         playerNames.PlayerO = playerOInput.value;
     };
@@ -58,7 +50,7 @@ const Players = (() => {
         return playerNames;
     };
 
-    // will be used later with the retry button
+    // will be used later with the new game button
     const clearPlayerNames = () => {
         playerNames.PlayerO = "";
         playerNames.PlayerX = "";
@@ -72,7 +64,6 @@ const Players = (() => {
         clearPlayerNames,
         playerNames,
     };
-
 })();
 
 
@@ -81,10 +72,6 @@ GAMEBOARD MODULE:
 - renderBoard()
 renders the board based on the state of the board array / object - public method that will use the update board
 runs each time player makes a move
-
-- activePlayer()
-switch player moves (marks are different) - private method to be used by display player
-will fire each time that the board get's updated
 
 - updateBoard()
 adds marks to the board array / object - needs the information on which mark is the active player
@@ -106,27 +93,55 @@ check game result: public method: will be used to display the result
 
 - clearboard()
 - clear the board array - public method: for sure the game module will need it
+
+- displayResult()
+display the final message with the player's name - public method
 */
 
 
 /*
-GAME MODULE:
-- renderPlayer()
-display which player is about to move - public method
-
-- renderStartPage()
-render the start page - public method
-
-- renderGamePage()
-render game page with an empty board - public method
-
-- renderResultPage()
-render result page - public method
-
-- displayResult()
-display the final message with the player's name - public method
-
-GAME IFFY:
-function that will handle everything
+SHOW PAGES MODULE:
+a module with methods for adding and removing the classes responsible for the visibility of the screens
 */
 
+const showPages = (() => {
+    // cache DOM
+    const startPage = document.querySelector(".start-screen");
+    const gamePage = document.querySelector(".game-screen");
+    const resultPage = document.querySelector(".result-screen");
+    const playButton = document.querySelector(".start-screen__btn");
+    const newGameButton = document.querySelector(".result-screen__btn--new-game");
+    const retryButton = document.querySelector(".result-screen__btn--retry");
+
+    // define methods
+    const showStartPage = () => {
+        // only the start page is visible
+        startPage.classList.remove("start-screen__hidden");
+        gamePage.classList.add("game-screen__hidden");
+        resultPage.classList.add("result-screen__hidden");
+
+    };
+
+    const showGamePage = () => {
+        startPage.classList.add("start-screen__hidden");
+        gamePage.classList.remove("game-screen__hidden");
+        resultPage.classList.add("result-screen__hidden");
+    };
+
+    const showResultPage = () => {
+        startPage.classList.add("start-screen__hidden");
+        gamePage.classList.add("game-screen__hidden");
+        resultPage.classList.remove("result-screen__hidden");
+    };
+
+    // bind events
+    playButton.addEventListener("click", showGamePage);
+    retryButton.addEventListener("click", showGamePage);
+    newGameButton.addEventListener("click", showStartPage);
+
+    return {
+        showStartPage,
+        showGamePage,
+        showResultPage,
+    }
+})();
