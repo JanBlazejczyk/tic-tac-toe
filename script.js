@@ -15,6 +15,7 @@ const PlayersModule = (() => {
     const playerOInput = document.querySelector(".start-screen__input--O");
     const playButton = document.querySelector(".start-screen__btn");
     const playerName = document.querySelector(".game-screen__player-name");
+    const gameBoardSquares = document.querySelectorAll(".game-screen__board-square");
 
     // define methods
     const _setNameO = () => {
@@ -77,7 +78,6 @@ const PlayersModule = (() => {
         else {
             players.ActivePlayer = "x";
         }
-        // return players;
     };
 
     const displayPlayer = () => {
@@ -88,10 +88,14 @@ const PlayersModule = (() => {
         else if (players.ActivePlayer === "o") {
             playerName.innerHTML = players.PlayerO + "'s";
         }
+        // change active player
+        activePlayer();
     }
 
     // bind events
     playButton.addEventListener("click", getPlayers);
+    // each time the boardsquare is clicked display the active player's move
+    gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", displayPlayer));
     // use the clear player names with the new game button
 
 
@@ -148,7 +152,7 @@ const GameBoardModule = (() => {
     }
 
     // define methods
-    const updateBoard = (event) => {
+    const _updateBoard = (event) => {
         // based on an active player when the user clicks on the square
         // change the state of the board object accordingly
 
@@ -159,13 +163,16 @@ const GameBoardModule = (() => {
         let clickedSquareNum = event.target.id;
         // get the square id and store it
         // update the gameBoard.id with correct mark
-        gameBoard[clickedSquareNum] = activePlayerMark;
+        if (gameBoard[clickedSquareNum] === "") {
+            gameBoard[clickedSquareNum] = activePlayerMark;
+        }
+
     };
 
 
     const renderBoard = (event) => {
-        updateBoard(event);
-        // use update board here!
+        // update the board before rendering
+        _updateBoard(event);
         for (i = 0; i <= 8; i++) {
             let boardSquareDiv = document.querySelector(`.game-screen__board-square--${i}`);
             let boardObjectRepresentation = gameBoard[i];
@@ -179,9 +186,6 @@ const GameBoardModule = (() => {
                 boardSquareDiv.innerHTML = iconOTemplate;
             }
         }
-        // each time the mark is added change an active player
-        PlayersModule.activePlayer(PlayersModule.players);
-        PlayersModule.displayPlayer();
     }
 
     // bind events
@@ -230,7 +234,6 @@ const ShowPagesModule = (() => {
             resultPage.classList.add("result-screen__hidden");
         }
         PlayersModule.displayPlayer();
-
     };
 
     const showResultPage = () => {
