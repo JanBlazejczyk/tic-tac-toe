@@ -15,7 +15,9 @@ const PlayersModule = (() => {
     const playerOInput = document.querySelector(".start-screen__input--O");
     const playButton = document.querySelector(".start-screen__btn");
     const playerName = document.querySelector(".game-screen__player-name");
-    const gameBoardSquares = document.querySelectorAll(".game-screen__board-square");
+    const playerIconContainer = document.querySelector(".game-screen__player-icon");
+    const iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
+    const iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`;
 
     // define methods
     const _setNameO = () => {
@@ -84,9 +86,11 @@ const PlayersModule = (() => {
         playerName.innerHTML = "";
         if (players.ActivePlayer === "x") {
             playerName.innerHTML = players.PlayerX + "'s";
+            playerIconContainer.innerHTML = iconXTemplate;
         }
         else if (players.ActivePlayer === "o") {
             playerName.innerHTML = players.PlayerO + "'s";
+            playerIconContainer.innerHTML = iconOTemplate;
         }
 
     }
@@ -139,7 +143,7 @@ const GameBoardModule = (() => {
     // cache DOM
     const gameBoardSquares = document.querySelectorAll(".game-screen__board-square");
     const iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
-    const iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`
+    const iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`;
 
     // define the board object
     gameBoard = {
@@ -216,6 +220,9 @@ const ShowPagesModule = (() => {
     const newGameButton = document.querySelector(".result-screen__btn--new-game");
     const retryButton = document.querySelector(".result-screen__btn--retry");
     const playerName = document.querySelector(".game-screen__player-name");
+    const playerIconContainer = document.querySelector(".game-screen__player-icon");
+    const iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
+    const iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`;
 
     // define methods
     const showStartPage = () => {
@@ -235,6 +242,7 @@ const ShowPagesModule = (() => {
 
             // player x always go first so this is the initial value
             playerName.innerHTML = PlayersModule.players.PlayerX + "'s";
+            playerIconContainer.innerHTML = iconXTemplate;
         }
 
     };
