@@ -149,6 +149,7 @@ const showPagesModule = (() => {
     };
 
     const showGamePage = () => {
+        // only show the game screen when both of the players typed in their names
         if (PlayersModule.checkInput()) {
             startPage.classList.add("start-screen__hidden");
             gamePage.classList.remove("game-screen__hidden");

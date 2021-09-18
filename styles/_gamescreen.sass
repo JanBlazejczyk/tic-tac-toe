@@ -26,6 +26,9 @@
         &:hover
             background-color: $focus-blue
 
+            i
+                @include icons($game-icon-size, $hover: true)
+
         &--0
             border-left: none
             border-top: none
@@ -60,7 +63,3 @@
 
     &__icon
         @include icons($game-icon-size, $hover: false)
-
-        &:hover
-            // this does not work as intended
-            @include icons($game-icon-size, $hover: true)
