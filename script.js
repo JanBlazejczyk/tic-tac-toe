@@ -52,7 +52,6 @@ const PlayersModule = (() => {
     };
 
     const getPlayers = () => {
-        console.log("Runs!");
         // clears the previous names
         clearPlayerNames();
         // sets new names based on the value of the input fields
@@ -111,16 +110,13 @@ const PlayersModule = (() => {
 
 /*
 GAMEBOARD MODULE:
-- renderBoard()
+DONE! - renderBoard()
 renders the board based on the state of the board array / object - public method that will use the update board
 runs each time player makes a move
 
 - updateBoard() - will need an active player function
 adds marks to the board array / object - needs the information on which mark is the active player
 runs each time player makes a move
-
-- hoverIcons()
-public method that will listen to mouseenter events to give icons hoover class and mouse leave to remove it
 
 - checkMove()
 check if the move is legal - private method that the update board array will use
@@ -139,7 +135,52 @@ check game result: public method: will be used to display the result
 - displayResult()
 display the final message with the player's name - public method
 */
+const GameBoardModule = (() => {
+    // cache DOM
+    const gameBoardContainer = document.querySelector(".game-screen__game-board");
+    const iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
+    const iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`
 
+    // define the board object
+    gameBoard = {
+        0: "", 1: "", 2: "",
+        3: "", 4: "", 5: "",
+        6: "", 7: "", 8: "",
+    }
+
+    // define methods
+    const updateBoard = () => {
+
+    };
+
+
+    const renderBoard = () => {
+        // use update board here!
+        for (i = 0; i <= 8; i++) {
+            let boardSquareDiv = document.querySelector(`.game-screen__board-square--${i}`);
+            let boardObjectRepresentation = gameBoard[i];
+            if (boardObjectRepresentation === "") {
+                boardSquareDiv.innerHTML = "";
+            }
+            else if (boardObjectRepresentation === "x") {
+                boardSquareDiv.innerHTML = iconXTemplate;
+            }
+            else if (boardObjectRepresentation === "o") {
+                boardSquareDiv.innerHTML = iconOTemplate;
+            }
+
+        }
+        console.log("fires!")
+    }
+
+    // bind events
+    gameBoardContainer.addEventListener("click", renderBoard);
+
+    // return public methods
+    return {
+        renderBoard,
+    }
+})();
 
 
 
@@ -150,7 +191,7 @@ SHOW PAGES MODULE:
 a module with methods for adding and removing the classes responsible for the visibility of the screens
 */
 
-const showPagesModule = (() => {
+const ShowPagesModule = (() => {
     // cache DOM
     const startPage = document.querySelector(".start-screen");
     const gamePage = document.querySelector(".game-screen");
