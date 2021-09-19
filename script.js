@@ -348,6 +348,9 @@ const ShowPagesModule = (() => {
         // only the start page is visible
         PlayersModule.clearPlayerNameInput();
         PlayersModule.clearPlayerNames();
+
+        PlayersModule.players.ActivePlayer = "x";
+
         startPage.classList.remove("start-screen__hidden");
         gamePage.classList.add("game-screen__hidden");
         resultPage.classList.add("result-screen__hidden");
