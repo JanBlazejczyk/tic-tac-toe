@@ -165,13 +165,14 @@ const GameBoardModule = (() => {
         // update the gameBoard.id with correct mark
         if (gameBoard[clickedSquareNum] === "") {
             gameBoard[clickedSquareNum] = activePlayerMark;
+            PlayersModule.displayPlayer();
             // should be called somehow in the render method but only if the move is legal
 
         }
     };
 
-    const renderBoard = (event) => {
-        let clickedSquareNum = event.target.id;
+    const renderBoard = () => {
+
         for (i = 0; i <= 8; i++) {
             let boardSquareDiv = document.querySelector(`.game-screen__board-square--${i}`);
             let boardObjectRepresentation = gameBoard[i];
@@ -185,9 +186,7 @@ const GameBoardModule = (() => {
                 boardSquareDiv.innerHTML = iconOTemplate;
             }
         }
-        if (!clickedSquareNum.hasChildNodes) {
-            PlayersModule.displayPlayer();
-        }
+
     }
 
     // returns the number of marks on the board
@@ -223,14 +222,21 @@ const GameBoardModule = (() => {
         // get the number of marks that are present on the board after the move is made
         let moveNum = _numOfMarksOnBoard();
         // get an active's player mark
-        let activePlayerMark = PlayersModule.players.ActivePlayer
+        let activePlayerMark = PlayersModule.players.ActivePlayer;
+        let lastMoved = null;
+        if (activePlayerMark === "x") {
+            lastMoved = "o";
+        }
+        else if (activePlayerMark === "o") {
+            lastMoved = "x";
+        }
         // figure out which square was clicked
         let clickedSquareNum = Number(event.target.id);
         console.log("Move number:", moveNum);
 
         // 9th mark is the last mark you can put on board and we need to perform the last check
         // must not fire if you get the combination in the last move
-        if (moveNum >= 9) {
+        if (moveNum > 8) {
             result = {
                 winner: false,
                 draw: true,
@@ -254,8 +260,9 @@ const GameBoardModule = (() => {
                 for (let squareNum of comboArray) {
 
                     console.log("Square to check:", squareNum);
+                    console.log("Active Player:", activePlayerMark);
                     // if any of the combo squares does not contain the given mark move to the next combo
-                    if (gameBoard[squareNum] !== activePlayerMark) {
+                    if (gameBoard[squareNum] !== lastMoved) {
                         break;
                     }
                     // if the square contains the mark then increment marksInCombo 
@@ -265,7 +272,7 @@ const GameBoardModule = (() => {
 
                     if (marksInCombo === 3) {
                         result = {
-                            winner: activePlayerMark,
+                            winner: lastMoved,
                             draw: false,
                         }
                         console.log(result);
@@ -288,12 +295,14 @@ const GameBoardModule = (() => {
 
 
     // bind events
-    // add a mark to the object
+    // updates the board and changes the active player
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", _updateBoard));
 
     // HERE CHECK IF THE GAME HAS ENDED
+    // checks if the previous player's move was the winning one or the last one
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", endGame));
-    // render the new board
+
+    // renders the new board
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", renderBoard));
 
 
