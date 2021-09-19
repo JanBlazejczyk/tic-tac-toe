@@ -171,9 +171,9 @@ const GameBoardModule = (() => {
         }
     };
 
-    const _clearBoard = () => {
+    const clearBoard = () => {
         for (let square in gameBoard) {
-            gameBoard.square = "";
+            gameBoard[square] = "";
         }
     }
 
@@ -315,6 +315,7 @@ const GameBoardModule = (() => {
     // return public methods
     return {
         renderBoard,
+        clearBoard,
         endGame,
     }
 })();
@@ -362,6 +363,10 @@ const ShowPagesModule = (() => {
             // player x always go first so this is the initial value
             playerName.innerHTML = PlayersModule.players.PlayerX + "'s";
             playerIconContainer.innerHTML = iconXTemplate;
+
+            // board needs to be cleared
+            GameBoardModule.clearBoard();
+            GameBoardModule.renderBoard();
         }
 
     };
