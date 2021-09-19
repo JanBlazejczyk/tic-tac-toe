@@ -189,7 +189,7 @@ const GameBoardModule = (() => {
 
     }
 
-    // returns the number of marks on the board
+    // returns the number of marks present on the board
     const _numOfMarksOnBoard = () => {
         let moveNum = 0;
         const boardSquares = Object.values(gameBoard);
@@ -201,13 +201,7 @@ const GameBoardModule = (() => {
         return moveNum;
     }
 
-
-    // will return an object {
-    // status: false,
-    // winner: result string,
-    //}
     const endGame = (event) => {
-        console.log("ENDGAME RUNS!");
         // identify the possible combos winning the game
         const winnerCombos = [
             [0, 1, 2],
@@ -223,6 +217,8 @@ const GameBoardModule = (() => {
         let moveNum = _numOfMarksOnBoard();
         // get an active's player mark
         let activePlayerMark = PlayersModule.players.ActivePlayer;
+        // if active player is x this means that o last moved and vice versa
+        // figure out who moved last
         let lastMoved = null;
         if (activePlayerMark === "x") {
             lastMoved = "o";
@@ -230,22 +226,18 @@ const GameBoardModule = (() => {
         else if (activePlayerMark === "o") {
             lastMoved = "x";
         }
-        // figure out which square was clicked
+        // figure out which square was the last move
         let clickedSquareNum = Number(event.target.id);
-        console.log("Squares taken:", moveNum);
-
-
-
         // if there are four marks on the board (two of each player's, winning becomes possible)
         // start checking conditions
         if (moveNum > 4) {
-            console.log("Checking for wins!");
-            // create an array of possible win combos based on current move
+            // create an array of possible win combos based on the last move
             let possibleCombos = winnerCombos.filter(comboArray => comboArray.includes(clickedSquareNum));
             // check each of the possible combos
             for (let comboArray of possibleCombos) {
+                // check if the player who just moved has his mark on every position from the given combo
                 let marksInCombo = 0;
-                // check each combo array against the board object
+                // for every board square of the combo check if it has last moving player's mark
                 for (let squareNum of comboArray) {
 
                     // if any of the combo squares does not contain the given mark move to the next combo
@@ -256,9 +248,8 @@ const GameBoardModule = (() => {
                     else {
                         marksInCombo++;
                     }
-                    // we have the combo array checked in this moment!
+                    // if the combo has 3 marks then last moving player has won
                     if (marksInCombo === 3) {
-                        // we have a winner!
                         result = {
                             winner: lastMoved,
                             draw: false,
@@ -269,9 +260,8 @@ const GameBoardModule = (() => {
 
                 };
             };
-            // if we went through all possible combos and there is no winner
-            // return a draw if the board is full or no winner if it's not
-            // TODO: WHERE AND HOW TO CHECK FOR THE DRAW
+            // if we went through all the combos and there is no winner
+            // return draw false if there are still free spaces on the board
             if (moveNum !== 9) {
                 result = {
                     winner: false,
@@ -280,6 +270,7 @@ const GameBoardModule = (() => {
                 console.log(result);
                 return result;
             }
+            // return draw if there are no free spaces on the board
             else {
                 result = {
                     winner: false,
