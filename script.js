@@ -122,6 +122,7 @@ const GameBoardModule = (() => {
     const resultMessageDiv = document.querySelector(".result-screen__result");
     const iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
     const iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`;
+    const resultIconDiv = document.querySelector(".result-screen__icon-container");
 
     // define the board object
     gameBoard = {
@@ -203,8 +204,26 @@ const GameBoardModule = (() => {
     }
 
     const displayResultMessage = (event) => {
+        let iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
+        let iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`;
+        let winIcon = ``;
         let message = _getResultMessage(event);
         resultMessageDiv.innerHTML = message;
+
+
+        let result = endGame(event);
+        if (result.winner === "x") {
+            winIcon = iconXTemplate;
+            resultIconDiv.innerHTML = winIcon;
+        }
+        else if (result.winner === "o") {
+            winIcon = iconOTemplate;
+            resultIconDiv.innerHTML = winIcon;
+        }
+        else if (result.draw !== false) {
+            resultIconDiv.innerHTML = `${iconXTemplate} – ${iconOTemplate}`;
+        }
+
     }
 
     const endGame = (event) => {

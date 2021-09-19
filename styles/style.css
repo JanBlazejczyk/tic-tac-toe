@@ -262,6 +262,12 @@
   margin: 0;
 }
 
+.result-screen__icon-container {
+  color: #90E0EF;
+  font-size: 6vh;
+  font-family: "Architects Daughter", cursive;
+}
+
 .result-screen__btn {
   width: 8rem;
   height: 3rem;
