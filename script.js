@@ -114,34 +114,12 @@ const PlayersModule = (() => {
 
 /*
 GAMEBOARD MODULE:
-DONE! - renderBoard()
-renders the board based on the state of the board array / object - public method that will use the update board
-runs each time player makes a move
 
-DONE! updateBoard() - will need an active player function
-adds marks to the board array / object - needs the information on which mark is the active player
-runs each time player makes a move
-
-DONE! checkMove()
-check if the move is legal - private method that the update board array will use
-runs each time the player clicks on the board
-
-DONE! endGame()
-check if the game has ended - private method: will be used by check result
-will run after every move and return true or false
-
-- gameResult()
-get game result: public method: will be used to display the result
-
-- displayResult()
-display the final message with the player's name - public method
-
-WRITTEN! clearboard()
-- clear the board array - public method: for sure the game module will need it
 */
 const GameBoardModule = (() => {
     // cache DOM
     const gameBoardSquares = document.querySelectorAll(".game-screen__board-square");
+    const resultMessageDiv = document.querySelector(".result-screen__result");
     const iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
     const iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`;
 
@@ -205,6 +183,28 @@ const GameBoardModule = (() => {
             }
         });
         return moveNum;
+    }
+
+    const _getResultMessage = (event) => {
+        let result = endGame(event);
+        let resultMessage = "";
+        if (result.draw !== false) {
+            resultMessage = "DRAW GAME!"
+        }
+        else if (result.winner !== false) {
+            if (result.winner === "x") {
+                resultMessage = `${PlayersModule.players.PlayerX} WON!`;
+            }
+            else if (result.winner === "o") {
+                resultMessage = `${PlayersModule.players.PlayerO} WON!`;
+            }
+        }
+        return resultMessage;
+    }
+
+    const displayResultMessage = (event) => {
+        let message = _getResultMessage(event);
+        resultMessageDiv.innerHTML = message;
     }
 
     const endGame = (event) => {
@@ -317,6 +317,7 @@ const GameBoardModule = (() => {
         renderBoard,
         clearBoard,
         endGame,
+        displayResultMessage,
     }
 })();
 
@@ -376,6 +377,7 @@ const ShowPagesModule = (() => {
 
     const showResultPage = (event) => {
         let result = GameBoardModule.endGame(event);
+        GameBoardModule.displayResultMessage(event);
         // if the game has ended show the result screen
         if (result.winner !== false || result.draw !== false) {
             startPage.classList.add("start-screen__hidden");
