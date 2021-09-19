@@ -232,35 +232,22 @@ const GameBoardModule = (() => {
         }
         // figure out which square was clicked
         let clickedSquareNum = Number(event.target.id);
-        console.log("Move number:", moveNum);
+        console.log("Squares taken:", moveNum);
 
-        // 9th mark is the last mark you can put on board and we need to perform the last check
-        // must not fire if you get the combination in the last move
-        if (moveNum > 8) {
-            result = {
-                winner: false,
-                draw: true,
-            };
-            console.log(result);
-            return result;
-        }
+
 
         // if there are four marks on the board (two of each player's, winning becomes possible)
         // start checking conditions
-        else if (moveNum > 4) {
+        if (moveNum > 4) {
             console.log("Checking for wins!");
             // create an array of possible win combos based on current move
             let possibleCombos = winnerCombos.filter(comboArray => comboArray.includes(clickedSquareNum));
-            console.log("Possible combos:", possibleCombos);
             // check each of the possible combos
             for (let comboArray of possibleCombos) {
-                console.log("Combo Array to check:", comboArray);
                 let marksInCombo = 0;
                 // check each combo array against the board object
                 for (let squareNum of comboArray) {
 
-                    console.log("Square to check:", squareNum);
-                    console.log("Active Player:", activePlayerMark);
                     // if any of the combo squares does not contain the given mark move to the next combo
                     if (gameBoard[squareNum] !== lastMoved) {
                         break;
@@ -269,8 +256,9 @@ const GameBoardModule = (() => {
                     else {
                         marksInCombo++;
                     }
-
+                    // we have the combo array checked in this moment!
                     if (marksInCombo === 3) {
+                        // we have a winner!
                         result = {
                             winner: lastMoved,
                             draw: false,
@@ -281,13 +269,25 @@ const GameBoardModule = (() => {
 
                 };
             };
-            // after going through each combo if there is no win
-            result = {
-                winner: false,
-                draw: false,
+            // if we went through all possible combos and there is no winner
+            // return a draw if the board is full or no winner if it's not
+            // TODO: WHERE AND HOW TO CHECK FOR THE DRAW
+            if (moveNum !== 9) {
+                result = {
+                    winner: false,
+                    draw: false,
+                }
+                console.log(result);
+                return result;
             }
-            console.log(result);
-            return result
+            else {
+                result = {
+                    winner: false,
+                    draw: true,
+                }
+                console.log(result);
+                return result;
+            }
         }
     };
 
