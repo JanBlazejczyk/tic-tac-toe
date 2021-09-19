@@ -166,9 +166,32 @@ const GameBoardModule = (() => {
         // update the gameBoard.id with correct mark
         if (gameBoard[clickedSquareNum] === "") {
             gameBoard[clickedSquareNum] = activePlayerMark;
+
+            // CHECK HERE IF THE GAME HAS ENDED
+            // figure out where and how to call showGameScreen
+
+
             // only change the displayed player when the move is legal
             PlayersModule.displayPlayer();
         }
+
+    };
+
+    // will return an object {
+    // status: false,
+    // result: result string,
+    //}
+    const endGame = (currentPlayer, gameBoard) => {
+        const winners = [
+            [0, 1, 2],
+            [3, 4, 6],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
 
     };
 
@@ -189,12 +212,11 @@ const GameBoardModule = (() => {
                 boardSquareDiv.innerHTML = iconOTemplate;
             }
         }
-
     }
 
     // bind events
     // this needs to be one of the divs not the whole board!
-    gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", renderBoard))
+    gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", renderBoard));
 
     // return public methods
     return {
