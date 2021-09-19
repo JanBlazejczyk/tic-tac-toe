@@ -126,18 +126,18 @@ DONE! checkMove()
 check if the move is legal - private method that the update board array will use
 runs each time the player clicks on the board
 
-- endGame()
+DONE! endGame()
 check if the game has ended - private method: will be used by check result
 will run after every move and return true or false
 
 - gameResult()
-check game result: public method: will be used to display the result
-
-- clearboard()
-- clear the board array - public method: for sure the game module will need it
+get game result: public method: will be used to display the result
 
 - displayResult()
 display the final message with the player's name - public method
+
+WRITTEN! clearboard()
+- clear the board array - public method: for sure the game module will need it
 */
 const GameBoardModule = (() => {
     // cache DOM
@@ -170,6 +170,12 @@ const GameBoardModule = (() => {
 
         }
     };
+
+    const _clearBoard = () => {
+        for (let square in gameBoard) {
+            gameBoard.square = "";
+        }
+    }
 
     const renderBoard = () => {
 
@@ -228,9 +234,17 @@ const GameBoardModule = (() => {
         }
         // figure out which square was the last move
         let clickedSquareNum = Number(event.target.id);
+        if (moveNum <= 4) {
+            result = {
+                draw: false,
+                winner: false,
+            }
+            return result;
+        }
+
         // if there are four marks on the board (two of each player's, winning becomes possible)
         // start checking conditions
-        if (moveNum > 4) {
+        else if (moveNum > 4) {
             // create an array of possible win combos based on the last move
             let possibleCombos = winnerCombos.filter(comboArray => comboArray.includes(clickedSquareNum));
             // check each of the possible combos
@@ -301,6 +315,7 @@ const GameBoardModule = (() => {
     // return public methods
     return {
         renderBoard,
+        endGame,
     }
 })();
 
@@ -325,6 +340,7 @@ const ShowPagesModule = (() => {
     const playerIconContainer = document.querySelector(".game-screen__player-icon");
     const iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
     const iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`;
+    const gameBoardSquares = document.querySelectorAll(".game-screen__board-square");
 
     // define methods
     const showStartPage = () => {
@@ -350,10 +366,16 @@ const ShowPagesModule = (() => {
 
     };
 
-    const showResultPage = () => {
-        startPage.classList.add("start-screen__hidden");
-        gamePage.classList.add("game-screen__hidden");
-        resultPage.classList.remove("result-screen__hidden");
+    const showResultPage = (event) => {
+        let result = GameBoardModule.endGame(event);
+        // if the game has ended show the result screen
+        if (result.winner !== false || result.draw !== false) {
+            startPage.classList.add("start-screen__hidden");
+            gamePage.classList.add("game-screen__hidden");
+            resultPage.classList.remove("result-screen__hidden");
+        }
+
+
     };
 
 
@@ -363,6 +385,8 @@ const ShowPagesModule = (() => {
     retryButton.addEventListener("click", showGamePage);
     // this button also needs to clear the board object
     newGameButton.addEventListener("click", showStartPage);
+    // show result page when the game ends
+    gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", showResultPage));
 
     return {
         showStartPage,
