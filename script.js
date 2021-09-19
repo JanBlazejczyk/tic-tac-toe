@@ -159,32 +159,36 @@ const GameBoardModule = (() => {
 
         // get an active's player mark
         let activePlayerMark = PlayersModule.players.ActivePlayer
-        console.log(activePlayerMark);
         // figure out which square was clicked
         let clickedSquareNum = event.target.id;
         // get the square id and store it
         // update the gameBoard.id with correct mark
         if (gameBoard[clickedSquareNum] === "") {
             gameBoard[clickedSquareNum] = activePlayerMark;
-
-            // CHECK HERE IF THE GAME HAS ENDED
-            // figure out where and how to call showGameScreen
-
-
-            // only change the displayed player when the move is legal
-            PlayersModule.displayPlayer();
         }
-
     };
+
+    // returns the number of marks on the board
+    const _numOfMarksOnBoard = () => {
+        let moveNum = 0;
+        const boardSquares = Object.values(gameBoard);
+        boardSquares.forEach((square) => {
+            if (square !== "") {
+                moveNum++;
+            }
+        });
+        return moveNum;
+    }
+
 
     // will return an object {
     // status: false,
-    // result: result string,
+    // winner: result string,
     //}
-    const endGame = (currentPlayer, gameBoard) => {
-        const winners = [
+    const endGame = (event) => {
+        const winnerCombos = [
             [0, 1, 2],
-            [3, 4, 6],
+            [3, 4, 5],
             [6, 7, 8],
             [0, 3, 6],
             [1, 4, 7],
@@ -192,13 +196,73 @@ const GameBoardModule = (() => {
             [0, 4, 8],
             [2, 4, 6],
         ];
+        let moveNum = _numOfMarksOnBoard();
+        // get an active's player mark
+        let activePlayerMark = PlayersModule.players.ActivePlayer
+        // figure out which square was clicked
+        let clickedSquareNum = Number(event.target.id);
+        console.log("Move number:", moveNum);
+
+        // 9th mark is the last mark you can put on board and we need to perform the last check
+        // this never gets called
+        if (moveNum >= 8) {
+            result = {
+                winner: false,
+                draw: true,
+            };
+            console.log(result);
+            return result;
+        }
+
+        // if there are four marks on the board (two of each player's, winning becomes possible)
+        // start checking conditions
+        else if (moveNum > 4) {
+            console.log("Checking for wins!");
+            // create an array of possible win combos based on current move
+            let possibleCombos = winnerCombos.filter(comboArray => comboArray.includes(clickedSquareNum));
+            console.log("Possible combos:", possibleCombos);
+            // check each of the possible combos
+            possibleCombos.forEach((comboArray) => {
+                console.log("Combo Array to check:", comboArray);
+                let marksInCombo = 0;
+                // check each combo array against the board object
+                for (let squareNum of comboArray) {
+
+                    console.log("Square to check:", squareNum);
+                    // if any of the combo squares does not contain the given mark move to the next combo
+                    if (gameBoard[squareNum] !== activePlayerMark) {
+                        break;
+                    }
+                    // if the square contains the mark then increment marksInCombo 
+                    else {
+                        marksInCombo++;
+                    }
+                };
+                if (marksInCombo === 3) {
+                    result = {
+                        winner: activePlayerMark,
+                        draw: false,
+                    }
+                    console.log(result);
+                    return result;
+                }
+
+            });
+            // after going through each combo if there is no win
+            result = {
+                winner: false,
+                draw: false,
+            }
+            console.log(result);
+            return result
+        }
+
 
     };
 
 
-    const renderBoard = (event) => {
-        // update the board before rendering
-        _updateBoard(event);
+    const renderBoard = () => {
+
         for (i = 0; i <= 8; i++) {
             let boardSquareDiv = document.querySelector(`.game-screen__board-square--${i}`);
             let boardObjectRepresentation = gameBoard[i];
@@ -215,7 +279,15 @@ const GameBoardModule = (() => {
     }
 
     // bind events
-    // this needs to be one of the divs not the whole board!
+    // add a mark to the object
+    gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", _updateBoard));
+    // HERE CHECK IF THE GAME HAS ENDED
+    gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", endGame));
+
+
+    // switch active player and display the current one
+    gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", PlayersModule.displayPlayer));
+    // render the new board
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", renderBoard));
 
     // return public methods
@@ -250,6 +322,7 @@ const ShowPagesModule = (() => {
     const showStartPage = () => {
         // only the start page is visible
         PlayersModule.clearPlayerNameInput();
+        PlayersModule.clearPlayerNames();
         startPage.classList.remove("start-screen__hidden");
         gamePage.classList.add("game-screen__hidden");
         resultPage.classList.add("result-screen__hidden");
@@ -278,7 +351,9 @@ const ShowPagesModule = (() => {
 
     // bind events
     playButton.addEventListener("click", showGamePage);
+    // this button also needs to clear the board object
     retryButton.addEventListener("click", showGamePage);
+    // this button also needs to clear the board object
     newGameButton.addEventListener("click", showStartPage);
 
     return {
