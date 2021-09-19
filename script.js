@@ -165,8 +165,30 @@ const GameBoardModule = (() => {
         // update the gameBoard.id with correct mark
         if (gameBoard[clickedSquareNum] === "") {
             gameBoard[clickedSquareNum] = activePlayerMark;
+            // should be called somehow in the render method but only if the move is legal
+
         }
     };
+
+    const renderBoard = (event) => {
+        let clickedSquareNum = event.target.id;
+        for (i = 0; i <= 8; i++) {
+            let boardSquareDiv = document.querySelector(`.game-screen__board-square--${i}`);
+            let boardObjectRepresentation = gameBoard[i];
+            if (boardObjectRepresentation === "") {
+                boardSquareDiv.innerHTML = "";
+            }
+            else if (boardObjectRepresentation === "x") {
+                boardSquareDiv.innerHTML = iconXTemplate;
+            }
+            else if (boardObjectRepresentation === "o") {
+                boardSquareDiv.innerHTML = iconOTemplate;
+            }
+        }
+        if (!clickedSquareNum.hasChildNodes) {
+            PlayersModule.displayPlayer();
+        }
+    }
 
     // returns the number of marks on the board
     const _numOfMarksOnBoard = () => {
@@ -186,7 +208,8 @@ const GameBoardModule = (() => {
     // winner: result string,
     //}
     const endGame = (event) => {
-        console.log("ENDGAME RUNS!")
+        console.log("ENDGAME RUNS!");
+        // identify the possible combos winning the game
         const winnerCombos = [
             [0, 1, 2],
             [3, 4, 5],
@@ -197,6 +220,7 @@ const GameBoardModule = (() => {
             [0, 4, 8],
             [2, 4, 6],
         ];
+        // get the number of marks that are present on the board after the move is made
         let moveNum = _numOfMarksOnBoard();
         // get an active's player mark
         let activePlayerMark = PlayersModule.players.ActivePlayer
@@ -205,8 +229,8 @@ const GameBoardModule = (() => {
         console.log("Move number:", moveNum);
 
         // 9th mark is the last mark you can put on board and we need to perform the last check
-        // this never gets called
-        if (moveNum > 8) {
+        // must not fire if you get the combination in the last move
+        if (moveNum >= 9) {
             result = {
                 winner: false,
                 draw: true,
@@ -249,8 +273,6 @@ const GameBoardModule = (() => {
                     }
 
                 };
-
-
             };
             // after going through each combo if there is no win
             result = {
@@ -260,39 +282,21 @@ const GameBoardModule = (() => {
             console.log(result);
             return result
         }
-
-
     };
 
 
-    const renderBoard = () => {
 
-        for (i = 0; i <= 8; i++) {
-            let boardSquareDiv = document.querySelector(`.game-screen__board-square--${i}`);
-            let boardObjectRepresentation = gameBoard[i];
-            if (boardObjectRepresentation === "") {
-                boardSquareDiv.innerHTML = "";
-            }
-            else if (boardObjectRepresentation === "x") {
-                boardSquareDiv.innerHTML = iconXTemplate;
-            }
-            else if (boardObjectRepresentation === "o") {
-                boardSquareDiv.innerHTML = iconOTemplate;
-            }
-        }
-    }
 
     // bind events
     // add a mark to the object
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", _updateBoard));
+
     // HERE CHECK IF THE GAME HAS ENDED
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", endGame));
-
-
-    // switch active player and display the current one
-    gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", PlayersModule.displayPlayer));
     // render the new board
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", renderBoard));
+
+
 
     // return public methods
     return {
