@@ -186,6 +186,7 @@ const GameBoardModule = (() => {
     // winner: result string,
     //}
     const endGame = (event) => {
+        console.log("ENDGAME RUNS!")
         const winnerCombos = [
             [0, 1, 2],
             [3, 4, 5],
@@ -205,7 +206,7 @@ const GameBoardModule = (() => {
 
         // 9th mark is the last mark you can put on board and we need to perform the last check
         // this never gets called
-        if (moveNum >= 8) {
+        if (moveNum > 8) {
             result = {
                 winner: false,
                 draw: true,
@@ -222,7 +223,7 @@ const GameBoardModule = (() => {
             let possibleCombos = winnerCombos.filter(comboArray => comboArray.includes(clickedSquareNum));
             console.log("Possible combos:", possibleCombos);
             // check each of the possible combos
-            possibleCombos.forEach((comboArray) => {
+            for (let comboArray of possibleCombos) {
                 console.log("Combo Array to check:", comboArray);
                 let marksInCombo = 0;
                 // check each combo array against the board object
@@ -237,17 +238,20 @@ const GameBoardModule = (() => {
                     else {
                         marksInCombo++;
                     }
-                };
-                if (marksInCombo === 3) {
-                    result = {
-                        winner: activePlayerMark,
-                        draw: false,
-                    }
-                    console.log(result);
-                    return result;
-                }
 
-            });
+                    if (marksInCombo === 3) {
+                        result = {
+                            winner: activePlayerMark,
+                            draw: false,
+                        }
+                        console.log(result);
+                        return result;
+                    }
+
+                };
+
+
+            };
             // after going through each combo if there is no win
             result = {
                 winner: false,
