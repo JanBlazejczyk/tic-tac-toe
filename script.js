@@ -9,7 +9,8 @@ Module handling all player related stuff
 - handles displaying an active player's name below the game board
 */
 const PlayersModule = (() => {
-    // initialize an object to return
+
+    // define the players object
     const players = {
         "PlayerX": "",
         "PlayerO": "",
@@ -41,7 +42,7 @@ const PlayersModule = (() => {
         _setNameO();
     };
 
-    // clear the input fields - used when showing the start page
+    // clear the input fields
     const clearPlayerNameInput = () => {
         playerOInput.value = "";
         playerXInput.value = "";
@@ -53,7 +54,7 @@ const PlayersModule = (() => {
         players.PlayerX = "";
     };
 
-    // checks if the player names input fields are not empty - used by showGamePage()
+    // checks if the player names input fields are not empty
     const checkInput = () => {
         if (playerOInput.value === "" && playerXInput.value === "") {
             playerOInput.classList.add("start-screen__input--warning");
@@ -85,6 +86,7 @@ const PlayersModule = (() => {
     };
 
     // display active player's name on the screen
+
     const displayPlayer = () => {
         _activePlayer();
         playerName.innerHTML = "";
@@ -105,25 +107,28 @@ const PlayersModule = (() => {
 
     // return public methods and objects
     return {
-        displayPlayer,
         players,
+        // used by GameBoardModule._updateBoard
+        displayPlayer,
+        // used by ShowPagesModule.showGamePage()
         checkInput,
-        clearPlayerNameInput
+        clearPlayerNameInput,
     };
 })();
 
 
 /*
 GAMEBOARD MODULE:
-
+Module handling stuff connected with the game board display and game logic
+- updates the gameBoard object when the move is made
+- resets the gameboard object
+- displays the board on the screen
+- counts the number of moves that are already made
+- checks if the game is supposed to end after each move
+- get's the message that is supposed to be displayed in the result screen
+- displays the final message on the result screen 
 */
 const GameBoardModule = (() => {
-    // cache DOM
-    const gameBoardSquares = document.querySelectorAll(".game-screen__board-square");
-    const resultMessageDiv = document.querySelector(".result-screen__result");
-    const iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
-    const iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`;
-    const resultIconDiv = document.querySelector(".result-screen__icon-container");
 
     // define the board object
     gameBoard = {
@@ -132,33 +137,36 @@ const GameBoardModule = (() => {
         6: "", 7: "", 8: "",
     }
 
-    // define methods
-    const _updateBoard = (event) => {
-        // based on an active player when the user clicks on the square
-        // change the state of the board object accordingly
+    // cache DOM
+    const gameBoardSquares = document.querySelectorAll(".game-screen__board-square");
+    const resultMessageDiv = document.querySelector(".result-screen__result");
+    const iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
+    const iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`;
+    const resultIconDiv = document.querySelector(".result-screen__icon-container");
 
+    // update the gameboard object
+    const _updateBoard = (event) => {
         // get an active's player mark
-        let activePlayerMark = PlayersModule.players.ActivePlayer
+        let activePlayerMark = PlayersModule.players.ActivePlayer;
         // figure out which square was clicked
         let clickedSquareNum = event.target.id;
-        // get the square id and store it
-        // update the gameBoard.id with correct mark
+        // update the gameBoard object with correct mark
+        // but only if the move is legal (this board square is empty)
         if (gameBoard[clickedSquareNum] === "") {
             gameBoard[clickedSquareNum] = activePlayerMark;
             PlayersModule.displayPlayer();
-            // should be called somehow in the render method but only if the move is legal
-
         }
     };
 
+    // remove all the player marks from the gameBoard object
     const clearBoard = () => {
         for (let square in gameBoard) {
             gameBoard[square] = "";
         }
     }
 
+    // display the board based on the current state of the gameBoard object 
     const renderBoard = () => {
-
         for (i = 0; i <= 8; i++) {
             let boardSquareDiv = document.querySelector(`.game-screen__board-square--${i}`);
             let boardObjectRepresentation = gameBoard[i];
@@ -175,7 +183,7 @@ const GameBoardModule = (() => {
 
     }
 
-    // returns the number of marks present on the board
+    // return the number of marks present on the board
     const _numOfMarksOnBoard = () => {
         let moveNum = 0;
         const boardSquares = Object.values(gameBoard);
@@ -187,7 +195,9 @@ const GameBoardModule = (() => {
         return moveNum;
     }
 
+    // return the result message (who won the game or is it a draw)
     const _getResultMessage = (event) => {
+        // get the result object
         let result = endGame(event);
         let resultMessage = "";
         if (result.draw !== false) {
@@ -204,13 +214,13 @@ const GameBoardModule = (() => {
         return resultMessage;
     }
 
+    // display the result message in the result screen 
     const displayResultMessage = (event) => {
         let iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
         let iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`;
         let winIcon = ``;
         let message = _getResultMessage(event);
         resultMessageDiv.innerHTML = message;
-
 
         let result = endGame(event);
         if (result.winner === "x") {
@@ -227,6 +237,8 @@ const GameBoardModule = (() => {
 
     }
 
+    // check if the game has ended
+    // returns an object indicating the final result - draw or the winning players mark
     const endGame = (event) => {
         // identify the possible combos winning the game
         const winnerCombos = [
@@ -239,7 +251,7 @@ const GameBoardModule = (() => {
             [0, 4, 8],
             [2, 4, 6],
         ];
-        // get the number of marks that are present on the board after the move is made
+        // get the number of marks that are already present on the board after the move is made
         let moveNum = _numOfMarksOnBoard();
         // get an active's player mark
         let activePlayerMark = PlayersModule.players.ActivePlayer;
@@ -254,6 +266,7 @@ const GameBoardModule = (() => {
         }
         // figure out which square was the last move
         let clickedSquareNum = Number(event.target.id);
+        // game can't end if there are less than 5 marks on the board
         if (moveNum <= 4) {
             result = {
                 draw: false,
@@ -269,11 +282,9 @@ const GameBoardModule = (() => {
             let possibleCombos = winnerCombos.filter(comboArray => comboArray.includes(clickedSquareNum));
             // check each of the possible combos
             for (let comboArray of possibleCombos) {
-                // check if the player who just moved has his mark on every position from the given combo
-                let marksInCombo = 0;
                 // for every board square of the combo check if it has last moving player's mark
+                let marksInCombo = 0;
                 for (let squareNum of comboArray) {
-
                     // if any of the combo squares does not contain the given mark move to the next combo
                     if (gameBoard[squareNum] !== lastMoved) {
                         break;
@@ -288,23 +299,22 @@ const GameBoardModule = (() => {
                             winner: lastMoved,
                             draw: false,
                         }
-                        console.log(result);
                         return result;
                     }
 
                 };
             };
-            // if we went through all the combos and there is no winner
+            // if we went through all the combos - no one has won yet
+            // check for possible draw:
             // return draw false if there are still free spaces on the board
             if (moveNum !== 9) {
                 result = {
                     winner: false,
                     draw: false,
                 }
-                console.log(result);
                 return result;
             }
-            // return draw if there are no free spaces on the board
+            // return draw true if there are no free spaces left on the board
             else {
                 result = {
                     winner: false,
@@ -316,33 +326,27 @@ const GameBoardModule = (() => {
         }
     };
 
-
-
-
     // bind events
-    // updates the board and changes the active player
+    // each time the move is made:
+    // update the board and change the active player 
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", _updateBoard));
 
-    // HERE CHECK IF THE GAME HAS ENDED
-    // checks if the previous player's move was the winning one or the last one
+    // check if the previous player's move was the winning one or the last one
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", endGame));
 
-    // renders the new board
+    // render the new board
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", renderBoard));
-
-
 
     // return public methods
     return {
+        //used by ShowPagesModule.showGamePage()
         renderBoard,
         clearBoard,
+        //used by ShowPagesModule.showResultPage()
         endGame,
         displayResultMessage,
     }
 })();
-
-
-
 
 
 /*
@@ -388,8 +392,6 @@ const ShowPagesModule = (() => {
             // board needs to be cleared
             GameBoardModule.clearBoard();
             GameBoardModule.renderBoard();
-
-
         }
 
     };
@@ -403,10 +405,7 @@ const ShowPagesModule = (() => {
             gamePage.classList.add("game-screen__hidden");
             resultPage.classList.remove("result-screen__hidden");
         }
-
-
     };
-
 
     // bind events
     playButton.addEventListener("click", showGamePage);
