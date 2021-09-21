@@ -330,10 +330,8 @@ const GameBoardModule = (() => {
     // each time the move is made:
     // update the board and change the active player 
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", _updateBoard));
-
     // check if the previous player's move was the winning one or the last one
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", endGame));
-
     // render the new board
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", renderBoard));
 
@@ -351,10 +349,11 @@ const GameBoardModule = (() => {
 
 /*
 SHOW PAGES MODULE:
-a module with methods for adding and removing the classes responsible for the visibility of the screens
+Module handeling the display of the screens: start screen, game screen and result screen
 */
 
 const ShowPagesModule = (() => {
+
     // cache DOM
     const startPage = document.querySelector(".start-screen");
     const gamePage = document.querySelector(".game-screen");
@@ -364,19 +363,20 @@ const ShowPagesModule = (() => {
     const retryButton = document.querySelector(".result-screen__btn--retry");
     const playerName = document.querySelector(".game-screen__player-name");
     const playerIconContainer = document.querySelector(".game-screen__player-icon");
-    const iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
     const iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`;
     const gameBoardSquares = document.querySelectorAll(".game-screen__board-square");
 
-    // define methods
+    // show start page
     const showStartPage = () => {
-        // only the start page is visible
+        // each time the page is showed, clear the input fields
         PlayersModule.clearPlayerNameInput();
+        // only the start page is visible
         startPage.classList.remove("start-screen__hidden");
         gamePage.classList.add("game-screen__hidden");
         resultPage.classList.add("result-screen__hidden");
     };
 
+    // show start page
     const showGamePage = () => {
         // only show the game screen when both of the players typed in their names
         if (PlayersModule.checkInput()) {
@@ -396,10 +396,12 @@ const ShowPagesModule = (() => {
 
     };
 
+    // show result page
     const showResultPage = (event) => {
+        // display the message based on the result of the game
         let result = GameBoardModule.endGame(event);
         GameBoardModule.displayResultMessage(event);
-        // if the game has ended show the result screen
+        // only show the screen if the game has ended
         if (result.winner !== false || result.draw !== false) {
             startPage.classList.add("start-screen__hidden");
             gamePage.classList.add("game-screen__hidden");
@@ -408,11 +410,13 @@ const ShowPagesModule = (() => {
     };
 
     // bind events
+    // play and retry buttons both show the game screen
     playButton.addEventListener("click", showGamePage);
-    // this button also needs to clear the board object
     retryButton.addEventListener("click", showGamePage);
-    // this button also needs to clear the board object
+
+    // new game button shows the start screen
     newGameButton.addEventListener("click", showStartPage);
+
     // show result page when the game ends
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", showResultPage));
 
