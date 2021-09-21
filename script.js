@@ -205,10 +205,10 @@ const GameBoardModule = (() => {
         }
         else if (result.winner !== false) {
             if (result.winner === "x") {
-                resultMessage = `${PlayersModule.players.PlayerX} WON!`;
+                resultMessage = `${PlayersModule.players.PlayerX} won!`;
             }
             else if (result.winner === "o") {
-                resultMessage = `${PlayersModule.players.PlayerO} WON!`;
+                resultMessage = `${PlayersModule.players.PlayerO} won!`;
             }
         }
         return resultMessage;
@@ -320,7 +320,6 @@ const GameBoardModule = (() => {
                     winner: false,
                     draw: true,
                 }
-                console.log(result);
                 return result;
             }
         }
@@ -393,7 +392,6 @@ const ShowPagesModule = (() => {
             GameBoardModule.clearBoard();
             GameBoardModule.renderBoard();
         }
-
     };
 
     // show result page
@@ -419,10 +417,4 @@ const ShowPagesModule = (() => {
 
     // show result page when the game ends
     gameBoardSquares.forEach((boardSquare) => boardSquare.addEventListener("click", showResultPage));
-
-    return {
-        showStartPage,
-        showGamePage,
-        showResultPage,
-    }
 })();
