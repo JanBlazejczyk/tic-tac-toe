@@ -1,6 +1,12 @@
 /*
 PLAYERS MODULE:
-module that binds the names players typed in with their marks when the play button is clicked
+Module handling all player related stuff
+- holds the players object which stores player names and an active player sign
+- binds the names players typed in with their marks when the play button is clicked
+- clears the player names input fields when the start screen is shown again
+- clears the player names in the players object when the new game starts
+- checks if the player names input fields are not empty before allowing the game board to be shown
+- handles displaying an active player's name below the game board
 */
 const PlayersModule = (() => {
     // initialize an object to return
@@ -19,7 +25,7 @@ const PlayersModule = (() => {
     const iconOTemplate = `<i class="far fa-circle game-screen__icon"></i>`;
     const iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`;
 
-    // define methods
+    // sets new names based on the value of the input fields
     const _setNameO = () => {
         players.PlayerO = playerOInput.value;
     };
@@ -28,12 +34,26 @@ const PlayersModule = (() => {
         players.PlayerX = playerXInput.value;
     };
 
-    // this will be used at the later stages
+    // bind the names players typed in with their marks - used when play button is clicked
+    const _getPlayers = () => {
+        _clearPlayerNames();
+        _setNameX();
+        _setNameO();
+    };
+
+    // clear the input fields - used when showing the start page
     const clearPlayerNameInput = () => {
         playerOInput.value = "";
         playerXInput.value = "";
     }
 
+    // reset the player names in players object
+    const _clearPlayerNames = () => {
+        players.PlayerO = "";
+        players.PlayerX = "";
+    };
+
+    // checks if the player names input fields are not empty - used by showGamePage()
     const checkInput = () => {
         if (playerOInput.value === "" && playerXInput.value === "") {
             playerOInput.classList.add("start-screen__input--warning");
@@ -54,23 +74,7 @@ const PlayersModule = (() => {
         return true;
     };
 
-    const getPlayers = () => {
-        // clears the previous names
-        clearPlayerNames();
-        // sets new names based on the value of the input fields
-        _setNameX();
-        _setNameO();
-        // returns the object with player names
-        return players;
-    };
-
-    // will be used later with the new game button
-    const clearPlayerNames = () => {
-        players.PlayerO = "";
-        players.PlayerX = "";
-    };
-
-
+    // toggle the active player in players object
     const _activePlayer = () => {
         if (players.ActivePlayer === "x") {
             players.ActivePlayer = "o";
@@ -80,8 +84,8 @@ const PlayersModule = (() => {
         }
     };
 
+    // display active player's name on the screen
     const displayPlayer = () => {
-        // change active player
         _activePlayer();
         playerName.innerHTML = "";
         if (players.ActivePlayer === "x") {
@@ -96,15 +100,12 @@ const PlayersModule = (() => {
     }
 
     // bind events
-    playButton.addEventListener("click", getPlayers);
-    // each time the boardsquare is clicked display the active player's move
-    // use the clear player names with the new game button
+    // each time the play button is clicked player names are assigned in the players object
+    playButton.addEventListener("click", _getPlayers);
 
-
+    // return public methods and objects
     return {
         displayPlayer,
-        getPlayers,
-        clearPlayerNames,
         players,
         checkInput,
         clearPlayerNameInput
@@ -367,7 +368,6 @@ const ShowPagesModule = (() => {
     const showStartPage = () => {
         // only the start page is visible
         PlayersModule.clearPlayerNameInput();
-        PlayersModule.clearPlayerNames();
         startPage.classList.remove("start-screen__hidden");
         gamePage.classList.add("game-screen__hidden");
         resultPage.classList.add("result-screen__hidden");
