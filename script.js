@@ -91,11 +91,11 @@ const PlayersModule = (() => {
         _activePlayer();
         playerName.innerHTML = "";
         if (players.ActivePlayer === "x") {
-            playerName.innerHTML = players.PlayerX + "'s";
+            playerName.textContent = players.PlayerX + "'s";
             playerIconContainer.innerHTML = iconXTemplate;
         }
         else if (players.ActivePlayer === "o") {
-            playerName.innerHTML = players.PlayerO + "'s";
+            playerName.textContent = players.PlayerO + "'s";
             playerIconContainer.innerHTML = iconOTemplate;
         }
 
@@ -220,7 +220,7 @@ const GameBoardModule = (() => {
         let iconXTemplate = `<i class="fas fa-times game-screen__icon"></i>`;
         let winIcon = ``;
         let message = _getResultMessage(event);
-        resultMessageDiv.innerHTML = message;
+        resultMessageDiv.textContent = message;
 
         let result = endGame(event);
         if (result.winner === "x") {
@@ -384,7 +384,7 @@ const ShowPagesModule = (() => {
             resultPage.classList.add("result-screen__hidden");
 
             // player x always go first so this is the initial value
-            playerName.innerHTML = PlayersModule.players.PlayerX + "'s";
+            playerName.textContent = PlayersModule.players.PlayerX + "'s";
             playerIconContainer.innerHTML = iconXTemplate;
             PlayersModule.players.ActivePlayer = "x";
 
